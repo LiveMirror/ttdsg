@@ -1,0 +1,8 @@
+/I "."
+/I "..\AidPlug\groupinc"
+/I "..\Common\groupinc"
+/I "..\FrameControl\groupinc"
+/I "..\LogOut\groupinc"
+/I "..\LogicalDeal\groupinc"
+/I "..\SceneIdentify\groupinc"
+/I "..\Setting\groupinc"
