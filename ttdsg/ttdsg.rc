@@ -15,27 +15,36 @@
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE
+2 TEXTINCLUDE 
 BEGIN
-	"#ifndef APSTUDIO_INVOKED\r\n"
+    "#ifndef APSTUDIO_INVOKED\r\n"
     "#include ""targetver.h""\r\n"
     "#endif\r\n"
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE
+3 TEXTINCLUDE 
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"
@@ -46,12 +55,11 @@ BEGIN
     "LANGUAGE 9, 1\r\n"
     "#pragma code_page(1252)\r\n"
     "#include ""res\\ttdsg.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
-    "#include ""afxres.rc""  	// Standard components\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
     "#endif\r\n"
     "\0"
 END
 
-/////////////////////////////////////////////////////////////////////////////
 #endif    // APSTUDIO_INVOKED
 
 
@@ -62,12 +70,131 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON         "res\\ttdsg.ico"
+IDR_MAINFRAME           ICON                    "res\\ttdsg.ico"
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_BINDWINDOW_DX DIALOGEX 0, 0, 400, 208
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "DX绑定组合模式"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "graphic.2d",IDC_CHECK_BINDWINDOW_DX_DISPLAY_DX_2D,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,17,92,10
+    CONTROL         "graphic.2d.2",IDC_CHECK_BINDWINDOW_DX_DISPLAY_DX_2D_2,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,17,92,10
+    CONTROL         "graphic.3d",IDC_CHECK_BINDWINDOW_DX_DISPLAY_DX_3D,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,17,92,10
+    CONTROL         "graphic.3d.8",IDC_CHECK_BINDWINDOW_DX_DISPLAY_DX_3D_8,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,17,92,10
+    CONTROL         "graphic.opengl",IDC_CHECK_BINDWINDOW_DX_DISPLAY_DX_OPENGL,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,28,92,10
+    CONTROL         "position.lock.api",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_POSITION_LOCK_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,56,92,10
+    CONTROL         "position.lock.message",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_POSITION_LOCK_MESSAGE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,56,92,10
+    CONTROL         "focus.input.api",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_FOCUS_INPUT_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,56,92,10
+    CONTROL         "focus.input.message",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_FOCUS_INPUT_MESSAGE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,56,92,10
+    CONTROL         "clip.lock.api",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_CLIP_LOCK_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,67,92,10
+    CONTROL         "input.lock.api",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_INPUT_LOCK_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,67,92,10
+    CONTROL         "state.api",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_STATE_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,67,92,10
+    CONTROL         "state.message",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_STATE_MESSAGE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,67,92,10
+    CONTROL         "api",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_API,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,78,92,10
+    CONTROL         "cursor",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_CURSOR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,78,92,10
+    CONTROL         "raw.input",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_RAW_INPUT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,78,92,10
+    CONTROL         "input.lock.api2",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_INPUT_LOCK_API2,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,78,92,10
+    CONTROL         "input.lock.api3",IDC_CHECK_BINDWINDOW_DX_MOUSE_DX_INPUT_LOCK_API3,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,89,92,10
+    CONTROL         "input.lock.api",IDC_CHECK_BINDWINDOW_DX_KEYBOARD_DX_INPUT_LOCK_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,117,92,10
+    CONTROL         "state.api",IDC_CHECK_BINDWINDOW_DX_KEYBOARD_DX_STATE_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,117,92,10
+    CONTROL         "api",IDC_CHECK_BINDWINDOW_DX_KEYBOARD_DX_API,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,117,92,10
+    CONTROL         "raw.input",IDC_CHECK_BINDWINDOW_DX_KEYBOARD_DX_RAW_INPUT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,117,92,10
+    CONTROL         "active.api",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_ACTIVE_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,147,92,10
+    CONTROL         "active.message",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_ACTIVE_MESSAGE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,147,92,10
+    CONTROL         "disable.window.position",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_DISABLE_WINDOW_POSITION,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,147,92,10
+    CONTROL         "disable.window.size",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_DISABLE_WINDOW_SIZE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,147,92,10
+    CONTROL         "disable.window.minmax",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_DISABLE_WINDOW_MINMAX,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,157,92,10
+    CONTROL         "fake.window.min",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_FAKE_WINDOW_MIN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,157,92,10
+    CONTROL         "hide.dll",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_HIDE_DLL,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,157,92,10
+    CONTROL         "active.api2",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_ACTIVE_API2,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,157,92,10
+    CONTROL         "input.ime",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_INPUT_IME,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,167,92,10
+    CONTROL         "graphic.protect",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_GRAPHIC_PROTECT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,167,92,10
+    CONTROL         "disable.window.show",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_DISABLE_WINDOW_SHOW,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,167,92,10
+    CONTROL         "anti.api",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_ANTI_API,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,167,92,10
+    CONTROL         "memory",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_MEMORY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,177,92,10
+    CONTROL         "km.protect",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_KM_PROTECT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,177,92,10
+    CONTROL         "prevent.block",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_PREVENT_BLOCK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,177,92,10
+    CONTROL         "ori.proc",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_ORI_PROC,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,177,92,10
+    CONTROL         "down.cpu",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_DOWN_CPU,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,187,92,10
+    CONTROL         "focus.message",IDC_CHECK_BINDWINDOW_DX_PUBLIC_DX_FOCUS_MESSAGE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,187,92,10
+    GROUPBOX        "屏幕颜色获取方式",IDC_STATIC,7,7,385,34
+    GROUPBOX        "鼠标仿真模式",IDC_STATIC,7,45,385,56
+    GROUPBOX        "键盘仿真模式",IDC_STATIC,7,105,385,25
+    GROUPBOX        "公共属性",IDC_STATIC,7,136,385,65
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DIALOG_BINDWINDOW_DX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-LANGUAGE 9, 1
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
+#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -77,7 +204,7 @@ LANGUAGE 9, 1
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About ttdsg"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
     LTEXT           "ttdsg, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
@@ -85,27 +212,53 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
 END
 
-IDD_TTDSG_DIALOG DIALOGEX  0, 0, 320, 200
-STYLE DS_SHELLFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION
- | DS_MODALFRAME
- | WS_SYSMENU
+IDD_TTDSG_DIALOG DIALOGEX 0, 0, 436, 218
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "ttdsg"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,209,179,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,263,179,50,14
-	CTEXT           "TODO: Place dialog controls here.",IDC_STATIC,10,96,300,8
+    DEFPUSHBUTTON   "OK",IDOK,209,197,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,379,197,50,14
+    CTEXT           "TODO: Place dialog controls here.",IDC_STATIC,10,96,300,8
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_TTDSG_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 429
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 211
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
 //
 
-VS_VERSION_INFO     VERSIONINFO
-  FILEVERSION       1,0,0,1
-  PRODUCTVERSION    1,0,0,1
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -116,51 +269,25 @@ VS_VERSION_INFO     VERSIONINFO
  FILETYPE 0x1L
  FILESUBTYPE 0x0L
 BEGIN
-	BLOCK "StringFileInfo"
-	BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
         BLOCK "040904e4"
-		BEGIN
+        BEGIN
             VALUE "CompanyName", "TODO: <Company name>"
             VALUE "FileDescription", "TODO: <File description>"
-			VALUE "FileVersion",     "1.0.0.1"
-			VALUE "InternalName",    "ttdsg.exe"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "ttdsg.exe"
             VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
-			VALUE "OriginalFilename","ttdsg.exe"
+            VALUE "OriginalFilename", "ttdsg.exe"
             VALUE "ProductName", "TODO: <Product name>"
-			VALUE "ProductVersion",  "1.0.0.1"
-		END
-	END
-	BLOCK "VarFileInfo"
-	BEGIN
-		VALUE "Translation", 0x0409, 1252
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
     END
 END
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO
-BEGIN
-    IDD_ABOUTBOX, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 163
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 55
-    END
-    IDD_TTDSG_DIALOG, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 313
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 193
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -168,13 +295,15 @@ END
 // String Table
 //
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     IDS_ABOUTBOX            "&About ttdsg..."
 END
 
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
 
-#endif
+
 
 #ifndef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -189,9 +318,10 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE 9, 1
 #pragma code_page(1252)
-#include "res\\ttdsg.rc2"  // non-Microsoft Visual C++ edited resources
-#include "afxres.rc"  	// Standard components
+#include "res\ttdsg.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
 #endif
+
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 

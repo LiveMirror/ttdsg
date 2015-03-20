@@ -357,6 +357,10 @@
 				UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 				>
 				<File
+					RelativePath=".\BindWindowDxDlg.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Resource.h"
 					>
 				</File>
@@ -379,6 +383,10 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\BindWindowDxDlg.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CompOptProj.txt"
 			>
 		</File>
@@ -392,5 +400,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="ttdsg.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
