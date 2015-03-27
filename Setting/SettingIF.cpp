@@ -29,23 +29,15 @@ using namespace std;
 #include "AidPlugIdentifyIF.h"
 #endif
 
-const TCHAR TCHAR_DEFAULT[] = _T("Default");
-bool		BOOL_DEFAULT = FALSE;
-int			INT_DEFAULT = 0;
-double		DOUBLE_DEFAULT = 0.0;
 
 SettingIF* SettingIF::s_pcInstance = NULL;
 
 const TCHAR TCHAR_INI_SETTING_FILE[] = _T("setting.ini");
-const TCHAR TCHAR_INI_SETTING_FILE_DEFAULT[] = _T("data\\setting_default.ini");
 
 const TCHAR TCHAR_SECTION_USERINFO[] = _T("用户信息");
 const TCHAR TCHAR_KEY_USERINFO_UNSERNAME[] = _T("用户名");
 const TCHAR TCHAR_KEY_USERINFO_PASSWORD[] = _T("密码");
 const TCHAR TCHAR_KEY_USERINFO_STORE[] = _T("保存");
-
-const TCHAR TCHAR_SECTION_SIMULATOR[] = _T("模拟器");
-const TCHAR TCHAR_KEY_SIMULATOR_TYPE[] = _T("使用模拟器类型");
 
 const TCHAR TCHAR_SECTION_BINDWINDOWINFO[] = _T("窗口绑定");
 const TCHAR TCHAR_KEY_BINDWINDOWINFO_DISPLAY[] = _T("屏幕颜色获取方式");
@@ -58,15 +50,8 @@ const TCHAR TCHAR_KEY_BINDWINDOWINFO_PUBLIC[] = _T("公共属性");
 const TCHAR TCHAR_KEY_BINDWINDOWINFO_PUBLICDX[] = _T("公共属性dx模式");
 const TCHAR TCHAR_KEY_BINDWINDOWINFO_MODEL[] = _T("模式");
 
-const TCHAR TCHAR_SECTION_RESETSIMULATORSIZE[] = _T("模拟器重置");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_DOWN_OK[] = _T("Down使用");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_DOWN_VALUE[] = _T("Down优先度");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_CTRL_MINUS_OK[] = _T("Ctrl+-使用");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_CTRL_MINUS_VALUE[] = _T("Ctrl+-优先度");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_CTRL_WHEELDOWN_OK[] = _T("Ctrl+WheeldDwon使用");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_CTRL_WHEELDOWN_VALUE[] = _T("Ctrl+WheelDwon优先度");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_CTRL_LEFTCLICK_OK[] = _T("Ctrl+LeftClick使用");
-const TCHAR TCHAR_KEY_RESETSIMULATORSIZE_CTRL_LEFTCLICK_VALUE[] = _T("Ctrl+LeftClick优先度");
+const TCHAR TCHAR_SECTION_HOTKEY[] = _T("热键");
+const TCHAR TCHAR_KEY_HOTKEY_HIDE[] = _T("隐藏");
 
 SettingIF* 
 SettingIF::Instance(void)
@@ -108,126 +93,69 @@ SettingIF::SetPasswordStore(bool bPasswordStore)
 }
 
 void 
-SettingIF::SetUsingSimulatorType(SIMULATOR_TYPE eUsingSimulator)
-{
-	m_sStorageInfo.eUsingSimulator = eUsingSimulator;
-	m_pIniFile->WriteInt(TCHAR_SECTION_SIMULATOR, TCHAR_KEY_SIMULATOR_TYPE, eUsingSimulator);
-}
-
-void 
 SettingIF::SetBindWindowInfo(const BindWindowInfo& sBindWindowInfo) 
 {
 	m_sStorageInfo.sBindWindowInfo = sBindWindowInfo;
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_DISPLAY, sBindWindowInfo.eDisplay);
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_DISPLAYDX, sBindWindowInfo.lDisplayDx);
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MOUSE, sBindWindowInfo.eMouse);
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MOUSEDX, sBindWindowInfo.lMouseDx);
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_KEYBOARD, sBindWindowInfo.eKeyboard);
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_KEYBOARDDX, sBindWindowInfo.lKeyboardDx);
-	m_pIniFile->WriteBool(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_PUBLIC, sBindWindowInfo.bPublic);
-	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_PUBLICDX, sBindWindowInfo.lPublicDx);
 	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MODEL, sBindWindowInfo.eModel);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_PUBLICDX, sBindWindowInfo.lPublicDx);
+	m_pIniFile->WriteBool(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_PUBLIC, sBindWindowInfo.bPublic);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_KEYBOARDDX, sBindWindowInfo.lKeyboardDx);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_KEYBOARD, sBindWindowInfo.eKeyboard);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MOUSEDX, sBindWindowInfo.lMouseDx);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MOUSE, sBindWindowInfo.eMouse);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_DISPLAYDX, sBindWindowInfo.lDisplayDx);
+	m_pIniFile->WriteInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_DISPLAY, sBindWindowInfo.eDisplay);
 }
 
 void 
-SettingIF::SetResetSimulator(RESET_SIMULATOR_TYPE eResetSimulator, const ResetSimulator& sResetSimulator) 
+SettingIF::SetHotKey(const Hotkey& sHotkey)
 {
-	m_sStorageInfo.sResetSimulator[eResetSimulator] = sResetSimulator;
-	switch(eResetSimulator) {
-		case RESET_SIMULATOR_DOWN:
-			m_pIniFile->WriteBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_DOWN_OK, sResetSimulator.bOK);
-			m_pIniFile->WriteInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_DOWN_VALUE, sResetSimulator.lPriority);
-			break;
-		case RESET_SIMULATOR_CTRL_MINUS:
-			m_pIniFile->WriteBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_MINUS_OK, sResetSimulator.bOK);
-			m_pIniFile->WriteInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_MINUS_VALUE, sResetSimulator.lPriority);
-			break;
-		case RESET_SIMULATOR_CTRL_WHEELDOWN:
-			m_pIniFile->WriteBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_WHEELDOWN_OK, sResetSimulator.bOK);
-			m_pIniFile->WriteInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_WHEELDOWN_VALUE, sResetSimulator.lPriority);
-			break;
-		case RESET_SIMULATOR_CTRL_LEFTCLICK:
-			m_pIniFile->WriteBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_LEFTCLICK_OK, sResetSimulator.bOK);
-			m_pIniFile->WriteInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_LEFTCLICK_VALUE, sResetSimulator.lPriority);
+	m_sStorageInfo.sHotkey[sHotkey.eHotKey] = sHotkey;
+	switch(sHotkey.eHotKey) {
+		case SettingIF::HOTKEY_HIDE:
+			m_pIniFile->WriteInt(TCHAR_SECTION_HOTKEY, TCHAR_KEY_HOTKEY_HIDE, sHotkey.uiHotKey);
 			break;
 		default:
 			break;
-	}
+	}	
 }
-
-void 
-SettingIF::GetSimulatorInfo(vector<SimulatorInfo> *vSimulatorInfo)
-{
-	if (NULL == vSimulatorInfo) {
-		return;
-	}
-	*vSimulatorInfo = m_vSimulatorInfo;
-}
-
-SettingIF::SimulatorInfo 
-SettingIF::GetUsingSimulatorInfo()
-{
-	if (1 == m_vSimulatorInfo.size()) {
-		return m_vSimulatorInfo[0];
-	}
-	SimulatorInfo sSimulatorInfo;
-	memset(&sSimulatorInfo, 0x00, sizeof(sSimulatorInfo));
-	for(vector<SimulatorInfo>::const_iterator citer = m_vSimulatorInfo.begin(); citer != m_vSimulatorInfo.end(); ++citer) {
-		if (m_sStorageInfo.eUsingSimulator == citer->eSimulator) {
-			sSimulatorInfo = *citer;
-		}
-	}
-	return sSimulatorInfo;
-}
-
-void 
-SettingIF::GetResetSimulatorFromPriority(vector<ResetSimulator> *vResetSimulatorPriority)
-{
-	vResetSimulatorPriority->clear();
-	for (int i=RESET_SIMULATOR_NON+1; i<RESET_SIMULATOR_ALL; i++) {
-		if (true == m_sStorageInfo.sResetSimulator[i].bOK) {
-			vResetSimulatorPriority->push_back(m_sStorageInfo.sResetSimulator[i]);
-		}
-	}
-	//更新下顺序
-	sort(vResetSimulatorPriority->begin(), vResetSimulatorPriority->end(),greater<ResetSimulator>());//降序排列
-	//	sort(vSoldierPriority->begin(), vSoldierPriority->end(),less<SoldierSate>()); //升序排列
-}
-
 
 void
 SettingIF::InitDefaultSetting()
 {
-	delete m_pIniFile;
-	m_pIniFile = new CIniFile;
-	if (true == m_pIniFile->OpenIniFile(TCHAR_INI_SETTING_FILE_DEFAULT)) {
-		return;
-	}
+	//[用户信息]
+	SetPasswordStore(true);
+	SetPassword("mxfzttdsg");
+	SetUserName("mxfzttdsg");
 
-	m_sStorageInfo.eUsingSimulator = SIMULATOR_TYPE_NON;
-	m_sStorageInfo.sBindWindowInfo.eDisplay = BINDWINDOWINFO_DISPLAY_DX;
-	m_sStorageInfo.sBindWindowInfo.lDisplayDx = BINDWINDOWINFO_DISPLAY_DX_OPENGL;
-	m_sStorageInfo.sBindWindowInfo.eMouse = BINDWINDOWINFO_MOUSE_WINDOWS3;
-	m_sStorageInfo.sBindWindowInfo.lMouseDx = BINDWINDOWINFO_MOUSE_DX_NON;
-	m_sStorageInfo.sBindWindowInfo.eKeyboard = BINDWINDOWINFO_KEYBOARD_WINDOWS;
-	m_sStorageInfo.sBindWindowInfo.lKeyboardDx = BINDWINDOWINFO_KEYBOARD_DX_NON;
-	m_sStorageInfo.sBindWindowInfo.bPublic = false;
-	m_sStorageInfo.sBindWindowInfo.lPublicDx = BINDWINDOWINFO_PUBLIC_DX_NON;
-	m_sStorageInfo.sBindWindowInfo.eModel = BINDWINDOWINFO_MODEL_AUTO;
+	BindWindowInfo sBindWindowInfo;
+	memset(&sBindWindowInfo, 0x00, sizeof(sBindWindowInfo));
+	sBindWindowInfo.eDisplay = BINDWINDOWINFO_DISPLAY_DX;
+	sBindWindowInfo.lDisplayDx = BINDWINDOWINFO_DISPLAY_DX_OPENGL;
+	sBindWindowInfo.eMouse = BINDWINDOWINFO_MOUSE_WINDOWS3;
+	sBindWindowInfo.lMouseDx = BINDWINDOWINFO_MOUSE_DX_NON;
+	sBindWindowInfo.eKeyboard = BINDWINDOWINFO_KEYBOARD_WINDOWS;
+	sBindWindowInfo.lKeyboardDx = BINDWINDOWINFO_KEYBOARD_DX_NON;
+	sBindWindowInfo.bPublic = false;
+	sBindWindowInfo.lPublicDx = BINDWINDOWINFO_PUBLIC_DX_NON;
+	sBindWindowInfo.eModel = BINDWINDOWINFO_MODEL_AUTO;
+	SetBindWindowInfo(sBindWindowInfo);
 
-	for (int i=RESET_SIMULATOR_NON+1; i<RESET_SIMULATOR_ALL; i++) {
-		m_sStorageInfo.sResetSimulator[i].bOK = true;
-		m_sStorageInfo.sResetSimulator[i].eResetSimulator = static_cast<RESET_SIMULATOR_TYPE>(i);
-		m_sStorageInfo.sResetSimulator[i].lPriority = RESET_SIMULATOR_ALL-i;
-	}
+	//[热键]
+	Hotkey sHotkey;
+	memset(&sHotkey, 0x00, sizeof(sHotkey));
+	sHotkey.eHotKey = HOTKEY_HIDE;
+	sHotkey.uiHotKey = VK_F3;//VK_HOME;
+	SetHotKey(sHotkey);
 }
 
-void 
+bool 
 SettingIF::ReadSettingFromFile()
 {
-	if (false == m_pIniFile->ReadEnable()) {
-		return;
+	if (false == m_pIniFile->OpenIniFile(TCHAR_INI_SETTING_FILE)) {
+		return false;
 	}
+
 	const char* pReadString = NULL;
 	pReadString = m_pIniFile->ReadString(TCHAR_SECTION_USERINFO, TCHAR_KEY_USERINFO_UNSERNAME, TCHAR_DEFAULT);
 	if (0x00 != strcmp(pReadString, TCHAR_DEFAULT)) {
@@ -244,7 +172,6 @@ SettingIF::ReadSettingFromFile()
 		m_sStorageInfo.bPasswordStore = bReadBool;
 	}
 
-	m_sStorageInfo.eUsingSimulator = static_cast<SIMULATOR_TYPE>(m_pIniFile->ReadInt(TCHAR_SECTION_SIMULATOR, TCHAR_KEY_SIMULATOR_TYPE, INT_DEFAULT));
 	m_sStorageInfo.sBindWindowInfo.eDisplay = static_cast<SettingIF::BINDWINDOWINFO_DISPLAY_TYPE>(m_pIniFile->ReadInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_DISPLAY, INT_DEFAULT));
 	m_sStorageInfo.sBindWindowInfo.lDisplayDx = m_pIniFile->ReadInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_DISPLAYDX, INT_DEFAULT);
 	m_sStorageInfo.sBindWindowInfo.eMouse = static_cast<SettingIF::BINDWINDOWINFO_MOUSE_TYPE>(m_pIniFile->ReadInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MOUSE, INT_DEFAULT));
@@ -254,14 +181,8 @@ SettingIF::ReadSettingFromFile()
 	m_sStorageInfo.sBindWindowInfo.bPublic = m_pIniFile->ReadBool(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_PUBLIC, BOOL_DEFAULT);
 	m_sStorageInfo.sBindWindowInfo.lPublicDx = m_pIniFile->ReadInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_PUBLICDX, INT_DEFAULT);
 	m_sStorageInfo.sBindWindowInfo.eModel = static_cast<SettingIF::BINDWINDOWINFO_MODEL_TYPE>(m_pIniFile->ReadInt(TCHAR_SECTION_BINDWINDOWINFO, TCHAR_KEY_BINDWINDOWINFO_MODEL, INT_DEFAULT));
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_DOWN].bOK = m_pIniFile->ReadBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_DOWN_OK, BOOL_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_DOWN].lPriority = m_pIniFile->ReadInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_DOWN_VALUE, INT_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_CTRL_MINUS].bOK = m_pIniFile->ReadBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_MINUS_OK, BOOL_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_CTRL_MINUS].lPriority = m_pIniFile->ReadInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_MINUS_VALUE, INT_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_CTRL_WHEELDOWN].bOK = m_pIniFile->ReadBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_WHEELDOWN_OK, BOOL_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_CTRL_WHEELDOWN].lPriority = m_pIniFile->ReadInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_WHEELDOWN_VALUE, INT_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_CTRL_LEFTCLICK].bOK = m_pIniFile->ReadBool(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_LEFTCLICK_OK, BOOL_DEFAULT);
-	m_sStorageInfo.sResetSimulator[RESET_SIMULATOR_CTRL_LEFTCLICK].lPriority = m_pIniFile->ReadInt(TCHAR_SECTION_RESETSIMULATORSIZE, TCHAR_KEY_RESETSIMULATORSIZE_CTRL_LEFTCLICK_VALUE, INT_DEFAULT);
+	m_sStorageInfo.sHotkey[HOTKEY_HIDE].uiHotKey = static_cast<SettingIF::HOTKEY_TYPE>(m_pIniFile->ReadInt(TCHAR_SECTION_HOTKEY, TCHAR_KEY_HOTKEY_HIDE, INT_DEFAULT));
+	return true;
 }
 
 void 
@@ -273,150 +194,24 @@ SettingIF::WriteSettingToFile()
 SettingIF::SettingIF():
 m_pIniFile(NULL)
 {
-	memset(&m_sStorageInfo, 0x00, sizeof(m_sStorageInfo));
-	for (int k=RESET_SIMULATOR_DOWN; k<=RESET_SIMULATOR_CTRL_LEFTCLICK; k++) {
-		m_sStorageInfo.sResetSimulator[k].eResetSimulator = static_cast<RESET_SIMULATOR_TYPE>(k);
-	}
-	
-	m_vSimulatorInfo.clear();
-	m_sStorageInfo.eUsingSimulator = SIMULATOR_TYPE_NON;
-
 	if (NULL == m_pIniFile) {
 		m_pIniFile = new CIniFile;
 	}
+
+	memset(&m_sStorageInfo, 0x00, sizeof(m_sStorageInfo));
+	for (int i=HOTKEY_NON+1; i<HOTKEY_ALL; i++) {
+		m_sStorageInfo.sHotkey[i].eHotKey =  static_cast<HOTKEY_TYPE>(i);
+	}
 	
-	if (false == m_pIniFile->OpenIniFile(TCHAR_INI_SETTING_FILE)) {
+	if (false == ReadSettingFromFile()) {
 		InitDefaultSetting();
 	}
-	ReadSettingFromFile();
-	InitializeSimulatorInfo();
 }
 
 
 SettingIF::~SettingIF()
 {
 	m_pIniFile->CloseIniFile();
-}
-void 
-SettingIF::InitializeSimulatorInfo()
-{
-	//蓝叠安卓模拟器(BlueStacks)
-	SimulatorInfo sSimulatorInfo = InitSimulatorInfo(SIMULATOR_TYPE_BLUESTACKS, _T("蓝叠安卓模拟器(BlueStacks)"), _T("HD-Quit.exe"), _T("HD-RunApp.exe"), _T("SOFTWARE\\BlueStacks"));
-	if (SIMULATOR_TYPE_NON != sSimulatorInfo.eSimulator) {
-		m_vSimulatorInfo.push_back(sSimulatorInfo);
-	}
-
-// 	//靠谱经典版 ClueStacks			---不支持部落冲突
-// 	sSimulatorInfo = InitSimulatorInfo(SIMULATOR_TYPE_KAOPU_JINDAINBAN, _T("靠谱安卓模拟器(经典版)"), _T("KP-Quit.exe"), _T("KP-RunApp.exe"), _T("SOFTWARE\\ClueStacks"));
-// 	if (SIMULATOR_TYPE_NON != sSimulatorInfo.eSimulator) {
-// 		m_vSimulatorInfo.push_back(sSimulatorInfo);
-// 	}
-
-	//靠谱最新版 NlueStacks
-	sSimulatorInfo = InitSimulatorInfo(SIMULATOR_TYPE_KAOPU_ZUIXINBAN, _T("靠谱安卓模拟器(最新版)"), _T("NK-Quit.exe"), _T("NK-RunApp.exe"), _T("SOFTWARE\\NlueStacks"));
-	if (SIMULATOR_TYPE_NON != sSimulatorInfo.eSimulator) {
-		m_vSimulatorInfo.push_back(sSimulatorInfo);
-	}
-
-	//靠谱极速版 ClueStacks	
-	CRegKey regKey;
-	DWORD dwBufLen = MAX_PATH;
-	memset(&sSimulatorInfo, 0x00, sizeof(sSimulatorInfo));
-	if (ERROR_SUCCESS == regKey.Open(HKEY_LOCAL_MACHINE, _T("SOFTWARE\\TianTian\\Setup"))) {
-		sSimulatorInfo.eSimulator = SIMULATOR_TYPE_KAOPU_JISUBAN;
-		strcpy_s(sSimulatorInfo.chSimulatorName, sizeof(sSimulatorInfo.chSimulatorName), _T("靠谱安卓模拟器(极速版)-天天暂不支持重启"));
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chInstallDir,_T("InstallPath"),&dwBufLen);
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chVersion,_T("Version"),&dwBufLen);
-
-		strcpy_s(sSimulatorInfo.chQuit, sizeof(sSimulatorInfo.chQuit), _T("不支持退出"));
-		strcpy_s(sSimulatorInfo.chRunApp, sizeof(sSimulatorInfo.chRunApp), _T("不支持启动"));
-		regKey.Close();
-	}
-	if (SIMULATOR_TYPE_NON != sSimulatorInfo.eSimulator) {
-		m_vSimulatorInfo.push_back(sSimulatorInfo);
-	}
-
-	if (0x01 == m_vSimulatorInfo.size()) {
-		//只有一个模拟器
-		sSimulatorInfo = m_vSimulatorInfo.front();
-		m_sStorageInfo.eUsingSimulator = sSimulatorInfo.eSimulator;
-	}
-}
-
-SettingIF::SimulatorInfo 
-SettingIF::InitSimulatorInfo(SIMULATOR_TYPE eSimulatorType, CString cstrName, CString cstrQuit, CString cstrRunApp, CString cstrKeyPath)
-{
-	CRegKey regKey;
-	DWORD dwBufLen = MAX_PATH;
-
-	SimulatorInfo sSimulatorInfo;
-	memset(&sSimulatorInfo, 0x00, sizeof(sSimulatorInfo));
-	if (ERROR_SUCCESS == regKey.Open(HKEY_LOCAL_MACHINE, cstrKeyPath)) {
-		sSimulatorInfo.eSimulator = eSimulatorType;
-		strcpy_s(sSimulatorInfo.chSimulatorName, sizeof(sSimulatorInfo.chSimulatorName), cstrName);
-
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chDataDir,_T("DataDir"),&dwBufLen);
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chInstallDir,_T("InstallDir"),&dwBufLen);
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chLogDir,_T("LogDir"),&dwBufLen);
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chUserDefinedDir,_T("UserDefinedDir"),&dwBufLen);
-		dwBufLen = MAX_PATH;
-		regKey.QueryMultiStringValue(sSimulatorInfo.chVersion,_T("Version"),&dwBufLen);
-
-		strcpy_s(sSimulatorInfo.chQuit, sizeof(sSimulatorInfo.chQuit), sSimulatorInfo.chInstallDir);
-		strcat_s(sSimulatorInfo.chQuit, sizeof(sSimulatorInfo.chQuit)-strlen(sSimulatorInfo.chQuit),cstrQuit);
-
-		strcpy_s(sSimulatorInfo.chRunApp, sizeof(sSimulatorInfo.chRunApp), sSimulatorInfo.chInstallDir);
-		strcat_s(sSimulatorInfo.chRunApp, sizeof(sSimulatorInfo.chRunApp)-strlen(sSimulatorInfo.chRunApp), cstrRunApp);
-
-		//退出模拟器
-		CString cstrWinExecPath = sSimulatorInfo.chQuit;
-		cstrWinExecPath.Replace(_T("\\"), _T("\\\\"));
-		CString cstrWinExec = _T("\"") + cstrWinExecPath + _T("\" Android");
-		strcat_s(sSimulatorInfo.chQuitWinExec, sizeof(sSimulatorInfo.chQuitWinExec), (LPSTR)(LPCTSTR)cstrWinExec);
-
-		//启动游戏
-		cstrWinExecPath = sSimulatorInfo.chRunApp;
-		cstrWinExecPath.Replace(_T("\\"), _T("\\\\"));
-		cstrWinExec = _T("\"") + cstrWinExecPath + _T("\" Android com.supercell.clashofclans com.supercell.clashofclans.GameApp");
-		strcat_s(sSimulatorInfo.chRunAppWinExec, sizeof(sSimulatorInfo.chRunAppWinExec), (LPSTR)(LPCTSTR)cstrWinExec);
-		regKey.Close();
-	}
-
-	if (ERROR_SUCCESS == regKey.Open(HKEY_LOCAL_MACHINE, cstrKeyPath+_T("\\Guests\\Android\\FrameBuffer\\0"))) {
-		regKey.QueryDWORDValue(_T("FullScreen"), sSimulatorInfo.dwFullScreen);
-		if (0x00 != sSimulatorInfo.dwFullScreen) {
-			sSimulatorInfo.dwFullScreen = 0x00;
-			regKey.SetDWORDValue(_T("FullScreen"), sSimulatorInfo.dwFullScreen);
-		}
-		regKey.QueryDWORDValue(_T("Width"), sSimulatorInfo.dwWidth);
-		if (800 != sSimulatorInfo.dwWidth) {
-			sSimulatorInfo.dwWidth = 800;
-			regKey.SetDWORDValue(_T("Width"), sSimulatorInfo.dwWidth);
-		}
-		regKey.QueryDWORDValue(_T("Height"), sSimulatorInfo.dwHeight);
-		if (600 != sSimulatorInfo.dwHeight) {
-			sSimulatorInfo.dwHeight = 600;
-			regKey.SetDWORDValue(_T("Height"), sSimulatorInfo.dwHeight);
-		}
-// 		regKey.QueryDWORDValue(_T("WindowWidth"), sSimulatorInfo.dwWindowWidth);
-// 		if (800 != sSimulatorInfo.dwWindowWidth) {
-// 			sSimulatorInfo.dwWindowWidth = 800;
-// 			regKey.SetDWORDValue(_T("WindowWidth"), sSimulatorInfo.dwWindowWidth);
-// 		}
-// 		regKey.QueryDWORDValue(_T("WindowHeight"), sSimulatorInfo.dwWindowHeight);
-// 		if (600 != sSimulatorInfo.dwWindowHeight) {
-// 			sSimulatorInfo.dwWindowHeight = 600;
-// 			regKey.SetDWORDValue(_T("Height"), sSimulatorInfo.dwWindowHeight);
-// 		}
-		regKey.Close();
-	}
-	return sSimulatorInfo;
 }
 
 CString 

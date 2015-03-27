@@ -30,8 +30,6 @@ class AidPlugFreeDM : public AidPlug
 public:
 	AidPlugFreeDM();
 	~AidPlugFreeDM();
-private:
-	Idmsoft* InitNewDll();
 
 	// Attributes
 public:
@@ -1748,6 +1746,7 @@ public:
 public:
 protected:
 private:
+	static CString AID_PLUG_DLL;
 	static CString AID_PLUG_VERSION;
 	Idmsoft* m_pIdmsoft;
 };

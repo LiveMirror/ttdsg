@@ -71,6 +71,11 @@
 #define tpKEYVALUE   2
 #define tpCOMMENT    3
 
+#define TCHAR_DEFAULT		_T("Default")
+#define BOOL_DEFAULT		FALSE
+#define INT_DEFAULT			0
+#define DOUBLE_DEFAULT		0.0
+
 struct ENTRY
 {
    char   Type;
@@ -98,7 +103,6 @@ public:
             ~CIniFile   (void);
     UINT    GetVersion  (void);
     bool    OpenIniFile (const char *pFileName);
-	bool	ReadEnable() {return m_bReadEnable;}
     bool    ReadBool    (const char *pSection, const char *pKey, bool   Default);
     int     ReadInt     (const char *pSection, const char *pKey, int    Default);
     double  ReadDouble  (const char *pSection, const char *pKey, double Default);
@@ -128,10 +132,6 @@ protected:
 	bool    AddSectionAndKey (const char *pSection, const char *pKey, const char *pValue);
 	struct  ENTRY *MakeNewEntry (void);
 	struct  ENTRY *FindSection (const char *pSection);
-private:
-	bool	m_bReadEnable;
 };
 
 #endif
-
-

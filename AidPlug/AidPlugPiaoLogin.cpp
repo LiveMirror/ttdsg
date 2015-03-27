@@ -30,7 +30,7 @@ AidPlugPiaoLogin::AidPlugPiaoLogin()
 	PLJD_DllMain(GetModuleHandle(NULL) , DLL_PROCESS_ATTACH , NULL);
 	if (0x00 == P_LoadSystem(80,0,"arvinmxfz2014",
 		"1A417FCBFDDA177945EA9468F229C5652C718344878CD32B0973F55EE08E5DB9229AC42CDB11F17BA39BE10CF54E59AC1E1968C17F9535E4D8AF099763985BDC",
-		"12F6C6875EEE623CE1584B09EF9D901BEE7E1C0C9F595F4E13B9958430A16844","1+3+4+",1)) {
+		"BD0937E3C57235DF50F992E7E484789970B406E4AF4976FB055D49A7437E8724","1+3+4+",1)) {
 		//初始化失败
 		CString cstrMsg;
 		cstrMsg.Format("登陆插件初始化失败！请查看您的网络是否通畅");
@@ -52,7 +52,13 @@ AidPlugPiaoLogin::C_GetAidPlugType()
 CString 
 AidPlugPiaoLogin::C_UserRegister(LPCTSTR userName, LPCTSTR userPwd, LPCTSTR userEmail)
 {
-	return P_UserReg((char*)userName, (char*)userPwd, _T(""), _T(""), _T(""));
+	//飘零验证会过滤关键字
+	CString cstErrRegisterInfo = P_UserReg((char*)userName, (char*)userPwd, _T(""), _T(""), _T(""));
+	if (0x00 == cstErrRegisterInfo.Compare("Error,信息不完整.")) {
+		//"exec|select|drop|alter|exists|union|and|or|xor|order|mid|asc|execute|xp_cmdshell|insert|update|delete|join|declare|char|sp_oacreate|wscript.shell|xp_regwrite|'|;|--"
+		cstErrRegisterInfo += "\r\n请确认是含有以下关键字：\r\nexec|select|drop|alter|exists|union|and|or|xor|order|mid|asc|execute|xp_cmdshell|insert|update|delete|join|declare|char|sp_oacreate|wscript.shell|xp_regwrite|'|;|--";
+	}
+	return cstErrRegisterInfo;
 }
 
 long 

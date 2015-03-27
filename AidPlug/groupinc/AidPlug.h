@@ -27,8 +27,43 @@ class AidPlug
 public:
 	AidPlug() {};
 	virtual ~AidPlug() {};
-private:
-	virtual Idmsoft* InitNewDll() = 0;
+protected:
+	Idmsoft* InitNewDll(CString cstDll)
+	{
+		Idmsoft* pDll = NULL;
+		//COleVariant temp1,temp2;
+		bool m_bInit = false;	
+
+		//下面直接加载dll创建对象，避免进行注册文件
+		typedef HRESULT (__stdcall * pfnGCO) (REFCLSID, REFIID, void**); 
+		pfnGCO fnGCO = NULL; 
+		HINSTANCE hdllInst = LoadLibrary(_T("AidPlug.dll")); 
+		fnGCO = (pfnGCO)GetProcAddress(hdllInst, _T("DllGetClassObject")); 
+		if (fnGCO != 0) 
+		{ 
+			IClassFactory* pcf = NULL; 
+			HRESULT hr=(fnGCO)(__uuidof(dmsoft), IID_IClassFactory, (void**)&pcf); 
+			if (SUCCEEDED(hr) && (pcf != NULL)) 
+			{ 
+				hr = pcf->CreateInstance(NULL, __uuidof(Idmsoft), (void**)&pDll); 
+				if ((SUCCEEDED(hr) && (pDll != NULL))==FALSE) {
+					delete pDll;
+					pDll = NULL;
+				}
+			} 
+			if (NULL != pcf) {
+				pcf->Release(); 
+			}
+		} 
+		if (NULL == pDll) {
+			CString cstrMsg;
+			cstrMsg.Format(_T("插件创建失败!"));
+			MessageBox(NULL,cstrMsg,_T("重大错误"),MB_OK);
+			PostMessage(AfxGetApp()->GetMainWnd()->GetSafeHwnd(),WM_QUIT,0,0);
+		}
+		
+		return pDll;
+	}
 
 	// Attributes
 public:

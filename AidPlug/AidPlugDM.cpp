@@ -28,19 +28,13 @@ using namespace std;
 #include "AidPlugLoginIF.h"
 #endif
 
+CString AidPlugDM::AID_PLUG_DLL = _T("AidPlugReserve.dll");
 CString AidPlugDM::AID_PLUG_VERSION = _T("5.1423");
 
 AidPlugDM::AidPlugDM():
 m_pIdmsoft(NULL)
 {
-	m_pIdmsoft = InitNewDll();
-	if (NULL == m_pIdmsoft) {
-		CString cstrMsg;
-		cstrMsg.Format("插件创建失败！请联系开发作者");
-		MessageBox(NULL,cstrMsg,"重大错误",MB_OK);
-		PostMessage(AfxGetApp()->GetMainWnd()->GetSafeHwnd(),WM_QUIT,0,0);
-		return;
-	}
+	m_pIdmsoft = InitNewDll(AID_PLUG_DLL);
 	/*
 	if (AID_PLUG_LOGIN_VERSION != m_pIdmsoft->Ver()) {
 		//插件版本不匹配 免注册方式不用考虑
@@ -94,34 +88,4 @@ AidPlugDM::~AidPlugDM()
 	}
 }
 
-Idmsoft* 
-AidPlugDM::InitNewDll()
-{
-	Idmsoft* pDll = NULL;
-	//COleVariant temp1,temp2;
-	bool m_bInit = false;	
-
-	//下面直接加载dll创建对象，避免进行注册文件
-	typedef HRESULT (__stdcall * pfnGCO) (REFCLSID, REFIID, void**); 
-	pfnGCO fnGCO = NULL; 
-	HINSTANCE hdllInst = LoadLibrary(_T("AidPlug.dll")); 
-	fnGCO = (pfnGCO)GetProcAddress(hdllInst, _T("DllGetClassObject")); 
-	if (fnGCO != 0) 
-	{ 
-		IClassFactory* pcf = NULL; 
-		HRESULT hr=(fnGCO)(__uuidof(dmsoft), IID_IClassFactory, (void**)&pcf); 
-		if (SUCCEEDED(hr) && (pcf != NULL)) 
-		{ 
-			hr = pcf->CreateInstance(NULL, __uuidof(Idmsoft), (void**)&pDll); 
-			if ((SUCCEEDED(hr) && (pDll != NULL))==FALSE) {
-				delete pDll;
-				pDll = NULL;
-			}
-		} 
-		if (NULL != pcf) {
-			pcf->Release(); 
-		}
-	} 
-	return pDll;
-}
 /* EOF */

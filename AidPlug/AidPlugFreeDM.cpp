@@ -28,12 +28,13 @@ using namespace std;
 #include "AidPlugLoginIF.h"
 #endif
 
+CString AidPlugFreeDM::AID_PLUG_DLL = _T("AidPlug.dll");
 CString AidPlugFreeDM::AID_PLUG_VERSION = _T("3.1233");
 
 AidPlugFreeDM::AidPlugFreeDM():
 m_pIdmsoft(NULL)
 {
-	m_pIdmsoft = InitNewDll();
+	m_pIdmsoft = InitNewDll(AID_PLUG_DLL);
 	if (NULL == m_pIdmsoft) {
 		CString cstrMsg;
 		cstrMsg.Format("插件创建失败！请联系开发作者");
@@ -54,36 +55,5 @@ AidPlugFreeDM::~AidPlugFreeDM()
 		delete m_pIdmsoft;
 		m_pIdmsoft = NULL;
 	}
-}
-
-Idmsoft* 
-AidPlugFreeDM::InitNewDll()
-{
-	Idmsoft* pDll = NULL;
-	//COleVariant temp1,temp2;
-	bool m_bInit = false;	
-
-	//下面直接加载dll创建对象，避免进行注册文件
-	typedef HRESULT (__stdcall * pfnGCO) (REFCLSID, REFIID, void**); 
-	pfnGCO fnGCO = NULL; 
-	HINSTANCE hdllInst = LoadLibrary(_T("AidPlugFree.dll")); 
-	fnGCO = (pfnGCO)GetProcAddress(hdllInst, _T("DllGetClassObject")); 
-	if (fnGCO != 0) 
-	{ 
-		IClassFactory* pcf = NULL; 
-		HRESULT hr=(fnGCO)(__uuidof(dmsoft), IID_IClassFactory, (void**)&pcf); 
-		if (SUCCEEDED(hr) && (pcf != NULL)) 
-		{ 
-			hr = pcf->CreateInstance(NULL, __uuidof(Idmsoft), (void**)&pDll); 
-			if ((SUCCEEDED(hr) && (pDll != NULL))==FALSE) {
-				delete pDll;
-				pDll = NULL;
-			}
-		} 
-		if (NULL != pcf) {
-			pcf->Release(); 
-		}
-	} 
-	return pDll;
 }
 /* EOF */

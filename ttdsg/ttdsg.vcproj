@@ -269,6 +269,10 @@
 				RelativePath="..\Setting\SettingIF.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\Setting\SimulatorSettingIF.cpp"
+				>
+			</File>
 			<Filter
 				Name="groupinc"
 				>
@@ -278,6 +282,10 @@
 				</File>
 				<File
 					RelativePath="..\Setting\groupinc\SettingIF.h"
+					>
+				</File>
+				<File
+					RelativePath="..\Setting\groupinc\SimulatorSettingIF.h"
 					>
 				</File>
 			</Filter>
@@ -306,6 +314,30 @@
 			Name="ttdsg"
 			>
 			<File
+				RelativePath=".\BindWindowDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BindWindowDxDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LoginDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ReChargeDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RegisterDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ResetPwdDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -333,6 +365,10 @@
 				RelativePath=".\ttdsgDlg.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\UserInfoDlg.cpp"
+				>
+			</File>
 			<Filter
 				Name="Resource Files"
 				Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
@@ -357,7 +393,27 @@
 				UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 				>
 				<File
+					RelativePath=".\BindWindowDlg.h"
+					>
+				</File>
+				<File
 					RelativePath=".\BindWindowDxDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LoginDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ReChargeDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\RegisterDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ResetPwdDlg.h"
 					>
 				</File>
 				<File
@@ -380,12 +436,12 @@
 					RelativePath=".\ttdsgDlg.h"
 					>
 				</File>
+				<File
+					RelativePath=".\UserInfoDlg.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\BindWindowDxDlg.cpp"
-			>
-		</File>
 		<File
 			RelativePath=".\CompOptProj.txt"
 			>

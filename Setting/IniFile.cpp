@@ -97,7 +97,6 @@ CIniFile::CIniFile (void)
 	m_pCurEntry   = NULL;
 	m_result [0]  = 0;
 	m_pIniFile    = NULL;
-	m_bReadEnable = false;
 }
 
 /*=========================================================================
@@ -185,7 +184,6 @@ bool CIniFile::OpenIniFile (const char * FileName)
 	}
 	fclose (m_pIniFile);
 	m_pIniFile = NULL;
-	m_bReadEnable = true;
 	return TRUE;
 }
 

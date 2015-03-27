@@ -18,6 +18,10 @@
  */
 #include "stdafx.h"
 
+#ifndef CXX_AIDPLUGIDENTIFYIF_H
+#include "AidPlugIdentifyIF.h"
+#endif
+
 #ifndef CXX_AIDPLUGDM_H
 #include "AidPlugDM.h"
 #endif
@@ -26,16 +30,16 @@
 #include "AidPlugFreeDM.h"
 #endif
 
-#ifndef CXX_AIDPLUGIDENTIFYIF_H
-#include "AidPlugIdentifyIF.h"
-#endif
-
 #ifndef AIDPLUGLOGINIF_H
 #include "AidPlugLoginIF.h"
 #endif
 
 #ifndef CXX_SETTINGIF_H
 #include "SettingIF.h"
+#endif
+
+#ifndef CXX_SIMULATORSETTINGIF_H
+#include "SimulatorSettingIF.h"
 #endif
 
 #ifndef CXX_COMMONFUNCTION_H
@@ -58,17 +62,17 @@ AidPlugIdentifyIF::Destroy(void)
 long 
 AidPlugIdentifyIF::API_FindWindow()
 {
-	SettingIF::SimulatorInfo sSimulatorInfo = SettingIF::Instance()->GetUsingSimulatorInfo();
+	SimulatorSettingIF::SimulatorInfo sSimulatorInfo = SimulatorSettingIF::Instance()->GetUsingSimulatorInfo();
 	switch (sSimulatorInfo.eSimulator) {
-		case SettingIF::SIMULATOR_TYPE_BLUESTACKS:
+		case SimulatorSettingIF::SIMULATOR_TYPE_BLUESTACKS:
 			m_hwnd = FindWindowByProcess(_T("HD-Frontend.exe"), _T(""), _T("BlueStacks App Player"));
 			break;
-		case SettingIF::SIMULATOR_TYPE_KAOPU_JINDAINBAN:
+		case SimulatorSettingIF::SIMULATOR_TYPE_KAOPU_JINDAINBAN:
 			break;
-		case SettingIF::SIMULATOR_TYPE_KAOPU_JISUBAN:
+		case SimulatorSettingIF::SIMULATOR_TYPE_KAOPU_JISUBAN:
 			m_hwnd = FindWindowByProcess(_T("TianTianPlayer.exe"), _T(""), _T("Powered by TianTian"));
 			break;
-		case SettingIF::SIMULATOR_TYPE_KAOPU_ZUIXINBAN:
+		case SimulatorSettingIF::SIMULATOR_TYPE_KAOPU_ZUIXINBAN:
 			m_hwnd = FindWindowByProcess(_T("NK-Frontend.exe"), _T(""), _T("Powered by BlueStacks"));
 			break;
 		default:
@@ -365,8 +369,9 @@ AidPlugIdentifyIF::AidPlugIdentifyIF():
 m_pPlugIdentify(NULL),
 m_hwnd(0x00)
 {
-	AIDPLUG_TYPE eAidPlugType = API_GetAidPlugType();
-	switch (eAidPlugType) {
+	if (NULL == m_pPlugIdentify) {
+		AIDPLUG_TYPE eAidPlugType = API_GetAidPlugType();
+		switch (eAidPlugType) {
 		case AIDPLUG_PAY_DM:
 			m_pPlugIdentify = new AidPlugDM;
 			break;
@@ -374,7 +379,9 @@ m_hwnd(0x00)
 		default:
 			m_pPlugIdentify = new AidPlugFreeDM;
 			break;
+		}
 	}
+	
 	InitResource();
 }
 

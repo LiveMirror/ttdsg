@@ -28,5 +28,16 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnDestroy();
+	afx_msg void OnTcnSelchangeTabSetting(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	DECLARE_MESSAGE_MAP()
+	
+private:
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	LRESULT     OnHotKey(WPARAM     wParam,LPARAM     lParam);
+
+private:
+	bool UserLogin();	//ÓÃ»§µÇÂ½
 };
