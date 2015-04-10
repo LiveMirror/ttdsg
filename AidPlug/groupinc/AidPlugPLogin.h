@@ -17,8 +17,8 @@
   @Header $Header$
  */
 
-#ifndef AIDPLUGPIAOLOGIN_H
-#define AIDPLUGPIAOLOGIN_H
+#ifndef AIDPLUGPLOGIN_H
+#define AIDPLUGPLOGIN_H
 
 #include "pljd.h"
 
@@ -26,11 +26,11 @@
 #include "AidPlugLogin.h"
 #endif
 
-class AidPlugPiaoLogin : public AidPlugLogin
+class AidPlugPLogin : public AidPlugLogin
 {
 public:
-	AidPlugPiaoLogin();
-	~AidPlugPiaoLogin();
+	AidPlugPLogin();
+	~AidPlugPLogin();
 	virtual AIDPLUG_TYPE C_GetAidPlugType();
 
 	virtual CString C_UserRegister(LPCTSTR userName, LPCTSTR userPwd, LPCTSTR userEmail);
@@ -47,5 +47,5 @@ protected:
 private:
 	static CString AID_PLUG_VERSION;
 };
-#endif // AIDPLUGPIAOLOGIN_H
+#endif // AIDPLUGPLOGIN_H
 /* EOF */

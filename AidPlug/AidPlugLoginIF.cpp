@@ -26,8 +26,8 @@
 #include "AidPlugEYLogin.h"
 #endif
 
-#ifndef AIDPLUGPIAOLOGIN_H
-#include "AidPlugPiaoLogin.h"
+#ifndef AIDPLUGPLOGIN_H
+#include "AidPlugPLogin.h"
 #endif
 
 AidPlugLoginIF* AidPlugLoginIF::s_pcInstance =  NULL;
@@ -81,7 +81,7 @@ m_pPlugLogin(NULL)
 {
 	if (NULL == m_pPlugLogin){
 //		m_pPlugLogin = new AidPlugEYLogin;
-		m_pPlugLogin = new AidPlugPiaoLogin;
+		m_pPlugLogin = new AidPlugPLogin;
 	}
 }
 

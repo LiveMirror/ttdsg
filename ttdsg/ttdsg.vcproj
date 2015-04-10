@@ -206,7 +206,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\AidPlug\AidPlugPiaoLogin.cpp"
+				RelativePath="..\AidPlug\AidPlugPLogin.cpp"
 				>
 			</File>
 			<Filter
@@ -241,7 +241,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\AidPlug\groupinc\AidPlugPiaoLogin.h"
+					RelativePath="..\AidPlug\groupinc\AidPlugPLogin.h"
 					>
 				</File>
 				<File
