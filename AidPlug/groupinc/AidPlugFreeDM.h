@@ -16,10 +16,10 @@
   @URL $URL$
   @Header $Header$
  */
-#pragma warning (disable:4927)	//取消警告
 
 #ifndef CXX_AIDPLUGFREEDM_H
 #define CXX_AIDPLUGFREEDM_H
+#pragma warning (disable:4927)	//取消警告
 
 #ifndef CXX_AIDPLUG_H
 #include "AidPlug.h"

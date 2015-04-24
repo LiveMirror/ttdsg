@@ -16,10 +16,10 @@
   @URL $URL$
   @Header $Header$
  */
-#pragma warning (disable:4927)
 
 #ifndef AIDPLUGEYLOGIN_H
 #define AIDPLUGEYLOGIN_H
+#pragma warning (disable:4927)
  
 #include "CEyLoginSoft.h"
 

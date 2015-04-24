@@ -19,6 +19,7 @@
 
 #ifndef CXX_AIDPLUGIDENTIFYIF_H
 #define CXX_AIDPLUGIDENTIFYIF_H
+#include "LogFile.h"
 #include <vector>
 using namespace std;
 
@@ -61,411 +62,791 @@ public:
 public:
 	CString Ver()
 	{
-		return m_pPlugIdentify->Ver();
+	    unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->Ver();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}
 	long SetPath(LPCTSTR path)
 	{
-		return m_pPlugIdentify->SetPath(path);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetPath(path);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, path, lRet);
+		return lRet;
 	}
 	CString Ocr(long x1, long y1, long x2, long y2, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->Ocr(x1, y1, x2, y2, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->Ocr(x1, y1, x2, y2, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf, 返回值:%s"),
+			               __FUNCTION__, 
+						   GetTickCount()-ulTickCount, 
+						   x1, y1, x2, y2, color, sim,
+						   cstrRet);
+		return cstrRet;
 	}
 	long FindStr(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();		
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->FindStr(x1, y1, x2, y2, str, color, sim, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim, lx,ly,
+                           lRet);
 		return lRet;
 	}
 	long GetResultCount(LPCTSTR str)
 	{
-		return m_pPlugIdentify->GetResultCount(str);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetResultCount(str);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, str, lRet);
+		return lRet;
 	}
 	long GetResultPos(LPCTSTR str, long index, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();		
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->GetResultPos(str, index, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           str, index, lx,ly,
+                           lRet);
 		return lRet;
 	}
 	long StrStr(LPCTSTR s, LPCTSTR str)
 	{
-		return m_pPlugIdentify->StrStr(s, str);
+		unsigned long ulTickCount = GetTickCount();	
+		long lRet = m_pPlugIdentify->StrStr(s, str); 
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%s %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, s, str, lRet);
+		return lRet;
 	}
 	long SendCommand(LPCTSTR cmd)
 	{
-		return m_pPlugIdentify->SendCommand(cmd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SendCommand(cmd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, cmd, lRet);
+		return lRet;
 	}
 	long UseDict(long index)
 	{
-		return m_pPlugIdentify->UseDict(index);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->UseDict(index);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, lRet);
+		return lRet;
 	}
 	CString GetBasePath()
 	{
-		return m_pPlugIdentify->GetBasePath();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetBasePath();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}
 	long SetDictPwd(LPCTSTR pwd)
 	{
-		return m_pPlugIdentify->SetDictPwd(pwd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetDictPwd(pwd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, pwd, lRet);
+		return lRet;
 	}
 	CString OcrInFile(long x1, long y1, long x2, long y2, LPCTSTR pic_name, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->OcrInFile(x1, y1, x2, y2, pic_name, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->OcrInFile(x1, y1, x2, y2, pic_name, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2, pic_name, color, sim,
+			               cstrRet);
+		return cstrRet;
 	}
 	long Capture(long x1, long y1, long x2, long y2, LPCTSTR file)
 	{
-		return m_pPlugIdentify->Capture(x1, y1, x2, y2, file);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->Capture(x1, y1, x2, y2, file);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, file,
+                           lRet);
+		return lRet;
 	}
 	long KeyPress(long vk)
 	{
-		return m_pPlugIdentify->KeyPress(vk);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->KeyPress(vk);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, vk, lRet);
+		return lRet;
 	}
 	long KeyDown(long vk)
 	{
-		return m_pPlugIdentify->KeyDown(vk);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->KeyDown(vk);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, vk, lRet);
+		return lRet;
 	}
 	long KeyUp(long vk)
 	{
-		return m_pPlugIdentify->KeyUp(vk);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->KeyUp(vk);
+        Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, vk, lRet);
+		return lRet;
 	}
 	long LeftClick()
 	{
-		return m_pPlugIdentify->LeftClick();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->LeftClick();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long RightClick()
 	{
-		return m_pPlugIdentify->RightClick();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->RightClick();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long MiddleClick()
 	{
-		return m_pPlugIdentify->MiddleClick();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->MiddleClick();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long LeftDoubleClick()
 	{
-		return m_pPlugIdentify->LeftDoubleClick();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->LeftDoubleClick();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long LeftDown()
 	{
-		return m_pPlugIdentify->LeftDown();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->LeftDown();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long LeftUp()
 	{
-		return m_pPlugIdentify->LeftUp();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->LeftUp();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long RightDown()
 	{
-		return m_pPlugIdentify->RightDown();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->RightDown();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long RightUp()
 	{
-		return m_pPlugIdentify->RightUp();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->RightUp();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long MoveTo(long x, long y)
 	{
-		return m_pPlugIdentify->MoveTo(x, y);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->MoveTo(x, y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, x, y, lRet);
+		return lRet;
 	}
 	long MoveR(long rx, long ry)
 	{
-		return m_pPlugIdentify->MoveR(rx, ry);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->MoveR(rx, ry);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, rx, ry, lRet);
+		return lRet;
 	}
 	CString GetColor(long x, long y)
 	{
-		return m_pPlugIdentify->GetColor(x, y);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetColor(x, y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, x, y, cstrRet);
+		return cstrRet;
 	}
 	CString GetColorBGR(long x, long y)
 	{
-		return m_pPlugIdentify->GetColorBGR(x, y);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetColorBGR(x, y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, x, y, cstrRet);
+		return cstrRet;
 	}
 	CString RGB2BGR(LPCTSTR rgb_color)
 	{
-		return m_pPlugIdentify->RGB2BGR(rgb_color);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->RGB2BGR(rgb_color);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, rgb_color, cstrRet);
+		return cstrRet;
 	}
 	CString BGR2RGB(LPCTSTR bgr_color)
 	{
-		return m_pPlugIdentify->BGR2RGB(bgr_color);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->BGR2RGB(bgr_color);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, bgr_color, cstrRet);
+		return cstrRet;
 	}
 	long UnBindWindow()
 	{
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->UnBindWindow();
 		API_SetHwnd(0x00);
-		return m_pPlugIdentify->UnBindWindow();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long CmpColor(long x, long y, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->CmpColor(x, y, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CmpColor(x, y, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %s %lf, 返回值:%ld"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x, y, color, sim,
+			               lRet);
+		return lRet;
 	}
 	long ClientToScreen(long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();	
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->ClientToScreen(m_hwnd, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %p %p, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, lx, ly, lRet);	
 		return lRet;
 	}
 	long ScreenToClient(long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->ScreenToClient(m_hwnd, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %p %p, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, lx, ly, lRet);	
 		return lRet;
 	}
 	long ShowScrMsg(long x1, long y1, long x2, long y2, LPCTSTR msg, LPCTSTR color)
 	{
-		return m_pPlugIdentify->ShowScrMsg(x1, y1, x2, y2, msg, color);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->ShowScrMsg(x1, y1, x2, y2, msg, color);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s, 返回值:%ld"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2, msg, color,
+			               lRet);
+		return lRet;
 	}
 	long SetMinRowGap(long row_gap)
 	{
-		return m_pPlugIdentify->SetMinRowGap(row_gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetMinRowGap(row_gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, row_gap, lRet);	
+		return lRet;
 	}
 	long SetMinColGap(long col_gap)
 	{
-		return m_pPlugIdentify->SetMinColGap(col_gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetMinColGap(col_gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, col_gap, lRet);	
+		return lRet;
 	}
 	long FindColor(long x1, long y1, long x2, long y2, LPCTSTR color, double sim, long dir, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->FindColor( x1, y1, x2, y2, color, sim, dir, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld %p %p, 返回值:%ld"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2, color, sim, dir, lx, ly,
+			               lRet);
 		return lRet;
 	}
 	CString FindColorEx(long x1, long y1, long x2, long y2, LPCTSTR color, double sim, long dir)
 	{
-		return m_pPlugIdentify->FindColorEx(x1, y1, x2, y2, color, sim, dir);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindColorEx(x1, y1, x2, y2, color, sim, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2, color, sim, dir,
+			               cstrRet);
+		return cstrRet;
 	}
 	long SetWordLineHeight(long line_height)
 	{
-		return m_pPlugIdentify->SetWordLineHeight(line_height);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWordLineHeight(line_height);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, line_height, lRet);
+		return lRet;
 	}
 	long SetWordGap(long word_gap)
 	{
-		return m_pPlugIdentify->SetWordGap(word_gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWordGap(word_gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, word_gap, lRet);
+		return lRet;
 	}
 	long SetRowGapNoDict(long row_gap)
 	{
-		return m_pPlugIdentify->SetRowGapNoDict(row_gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetRowGapNoDict(row_gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, row_gap, lRet);
+		return lRet;
 	}
 	long SetColGapNoDict(long col_gap)
 	{
-		return m_pPlugIdentify->SetColGapNoDict(col_gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetColGapNoDict(col_gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, col_gap, lRet);
+		return lRet;
 	}
 	long SetWordLineHeightNoDict(long line_height)
 	{
-		return m_pPlugIdentify->SetWordLineHeightNoDict(line_height);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWordLineHeightNoDict(line_height);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, line_height, lRet);
+		return lRet;
 	}
 	long SetWordGapNoDict(long word_gap)
 	{
-		return m_pPlugIdentify->SetWordGapNoDict(word_gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWordGapNoDict(word_gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, word_gap, lRet);
+		return lRet;
 	}
 	long GetWordResultCount(LPCTSTR str)
 	{
-		return m_pPlugIdentify->GetWordResultCount(str);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetWordResultCount(str);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, str, lRet);
+		return lRet;
 	}
 	long GetWordResultPos(LPCTSTR str, long index, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->GetWordResultPos(str, index, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld %p %p, 返回值:%ld"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               str, index, lx, ly,
+			               lRet);
 		return lRet;
 	}
 	CString GetWordResultStr(LPCTSTR str, long index)
 	{
-		return m_pPlugIdentify->GetWordResultStr(str, index);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetWordResultStr(str, index);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, str, index, cstrRet);
+		return cstrRet;
 	}
 	CString GetWords(long x1, long y1, long x2, long y2, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->GetWords(x1, y1, x2, y2, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetWords(x1, y1, x2, y2, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2, color, sim,
+			               cstrRet);
+		return cstrRet;
 	}
 	CString GetWordsNoDict(long x1, long y1, long x2, long y2, LPCTSTR color)
 	{
-		return m_pPlugIdentify->GetWordsNoDict(x1, y1, x2, y2, color);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetWordsNoDict(x1, y1, x2, y2, color);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			                x1, y1, x2, y2, color,
+			               cstrRet);
+		return cstrRet;
 	}
 	long SetShowErrorMsg(long show)
 	{
-		return m_pPlugIdentify->SetShowErrorMsg(show);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetShowErrorMsg(show);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, show, lRet);
+		return lRet;
 	}
 	long GetClientSize(long * lWidth, long * lHeight)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT width;
 		VARIANT height;
 		long lRet = m_pPlugIdentify->GetClientSize(m_hwnd, &width, &height);
 		*lWidth = vartol(width);
 		*lHeight = vartol(height);
+    	Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %p %p, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lWidth, lHeight, lRet);
 		return lRet;
 	}
 	long MoveWindow(long x, long y)
 	{
-		return m_pPlugIdentify->MoveWindow(m_hwnd, x, y);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->MoveWindow(m_hwnd, x, y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, x, y, lRet);
+		return lRet;
 	}
 	CString GetColorHSV(long x, long y)
 	{
-		return m_pPlugIdentify->GetColorHSV(x, y);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetColorHSV(x, y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld %ld, 参数: %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, x, y, cstrRet);
+		return cstrRet;
 	}
 	CString GetAveRGB(long x1, long y1, long x2, long y2)
 	{
-		return m_pPlugIdentify->GetAveRGB(x1, y1, x2, y2);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetAveRGB(x1, y1, x2, y2);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2,
+			               cstrRet);
+		return cstrRet;
 	}
 	CString GetAveHSV(long x1, long y1, long x2, long y2)
 	{
-		return m_pPlugIdentify->GetAveHSV(x1, y1, x2, y2);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetAveHSV(x1, y1, x2, y2);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2,
+			               cstrRet);
+		return cstrRet;
 	}
 	long GetForegroundWindow()
 	{
-		return m_pPlugIdentify->GetForegroundWindow();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetForegroundWindow();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long GetForegroundFocus()
 	{
-		return m_pPlugIdentify->GetForegroundFocus();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetForegroundFocus();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long GetMousePointWindow()
 	{
-		return m_pPlugIdentify->GetMousePointWindow();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetMousePointWindow();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long GetPointWindow(long x, long y)
 	{
-		return m_pPlugIdentify->GetPointWindow(x, y);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetPointWindow(x, y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%ld %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, x, y, lRet);
+		return lRet;
 	}
 	CString EnumWindow(long parent, LPCTSTR title, LPCTSTR class_name, long filter)
 	{
-		return m_pPlugIdentify->EnumWindow(parent, title, class_name, filter);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->EnumWindow(parent, title, class_name, filter);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %s %s %ld, 返回值:%s"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               parent, title, class_name, filter,
+			               cstrRet);
+		return cstrRet;
 	}
 	long GetWindowState(long flag)
 	{
-		return m_pPlugIdentify->GetWindowState(m_hwnd, flag);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetWindowState(m_hwnd, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, flag, lRet);	
+		return lRet;
 	}
 	long GetWindow(long flag)
 	{
-		return m_pPlugIdentify->GetWindow(m_hwnd, flag);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetWindow(m_hwnd, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, flag, lRet);	
+		return lRet;
 	}
 	long GetSpecialWindow(long flag)
 	{
-		return m_pPlugIdentify->GetSpecialWindow(flag);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetSpecialWindow(flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, flag, lRet);	
+		return lRet;
 	}
 	long SetWindowText(LPCTSTR text)
 	{
-		return m_pPlugIdentify->SetWindowText(m_hwnd, text);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWindowText(m_hwnd, text);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, text, lRet);	
+		return lRet;
 	}
 	long SetWindowSize(long width, long height)
 	{
-		return m_pPlugIdentify->SetWindowSize(m_hwnd, width, height);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWindowSize(m_hwnd, width, height);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, width, height, lRet);	
+		return lRet;
 	}
 	long GetWindowRect(VARIANT * x1, VARIANT * y1, VARIANT * x2, VARIANT * y2)
 	{
-		return m_pPlugIdentify->GetWindowRect(m_hwnd, x1, y1, x2, y2);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetWindowRect(m_hwnd, x1, y1, x2, y2);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%p %p %p %p, 返回值:%ld"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x1, y1, x2, y2,
+			               lRet);
+		return lRet;
 	}
 	CString GetWindowTitle()
 	{
-		return m_pPlugIdentify->GetWindowTitle(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetWindowTitle(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}
 	CString GetWindowClass()
 	{
-		return m_pPlugIdentify->GetWindowClass(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetWindowClass(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}
 	long SetWindowState(long flag)
 	{
-		return m_pPlugIdentify->SetWindowState(m_hwnd, flag);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWindowState(m_hwnd, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, flag, lRet);	
+		return lRet;
 	}
 	long CreateFoobarRect(long x, long y, long w, long h)
 	{
-		return m_pPlugIdentify->CreateFoobarRect(m_hwnd, x, y, w, h);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CreateFoobarRect(m_hwnd, x, y, w, h);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld, 返回值:%ld"),
+			               __FUNCTION__, 
+			               GetTickCount()-ulTickCount, 
+			               x, y, w, h,
+			               lRet);
+		return lRet;
 	}
 	long CreateFoobarRoundRect(long x, long y, long w, long h, long rw, long rh)
 	{
-		return m_pPlugIdentify->CreateFoobarRoundRect(m_hwnd, x, y, w, h, rw, rh);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CreateFoobarRoundRect(m_hwnd, x, y, w, h, rw, rh);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, w, h, rw, rh,
+                           lRet);
+		return lRet;
 	}
 	long CreateFoobarEllipse(long x, long y, long w, long h)
 	{
-		return m_pPlugIdentify->CreateFoobarEllipse(m_hwnd, x, y, w, h);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CreateFoobarEllipse(m_hwnd, x, y, w, h);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, w, h,
+                           lRet);
+		return lRet;
 	}
 	long CreateFoobarCustom(long x, long y, LPCTSTR pic, LPCTSTR trans_color, double sim)
 	{
-		return m_pPlugIdentify->CreateFoobarCustom(m_hwnd, x, y, pic, trans_color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CreateFoobarCustom(m_hwnd, x, y, pic, trans_color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %s %s %lf , 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, pic, trans_color, sim,
+                           lRet);
+		return lRet;
 	}
 	long FoobarFillRect(long x1, long y1, long x2, long y2, LPCTSTR color)
 	{
-		return m_pPlugIdentify->FoobarFillRect(m_hwnd, x1, y1, x2, y2, color);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarFillRect(m_hwnd, x1, y1, x2, y2, color);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, color,
+                           lRet); 
+		return lRet;
 	}
 	long FoobarDrawText(long x, long y, long w, long h, LPCTSTR text, LPCTSTR color, long align)
 	{
-		return m_pPlugIdentify->FoobarDrawText(m_hwnd, x, y, w, h, text, color, align);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarDrawText(m_hwnd, x, y, w, h, text, color, align);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, w, h, text, color, align,
+                           lRet);
+		return lRet;
 	}
 	long FoobarDrawPic(long x, long y, LPCTSTR pic, LPCTSTR trans_color)
 	{
-		return m_pPlugIdentify->FoobarDrawPic(m_hwnd, x, y, pic, trans_color);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarDrawPic(m_hwnd, x, y, pic, trans_color);
+        Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, pic, trans_color,
+                           lRet);
+		return lRet;
 	}
 	long FoobarUpdate()
 	{
-		return m_pPlugIdentify->FoobarUpdate(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarUpdate(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}
 	long FoobarLock()
 	{
-		return m_pPlugIdentify->FoobarLock(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarLock(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long FoobarUnlock()
 	{
-		return m_pPlugIdentify->FoobarUnlock(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarUnlock(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long FoobarSetFont(LPCTSTR font_name, long size, long flag)
 	{ 
-		return m_pPlugIdentify->FoobarSetFont(m_hwnd, font_name, size, flag);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarSetFont(m_hwnd, font_name, size, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           font_name, size, flag,
+                           lRet);
+		return lRet;
 	}	
 	long FoobarTextRect(long x, long y, long w, long h)
 	{
-		return m_pPlugIdentify->FoobarTextRect(m_hwnd, x, y, w, h);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarTextRect(m_hwnd, x, y, w, h);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, w, h,
+                           lRet);
+		return lRet;
 	}	
 	long FoobarPrintText(LPCTSTR text, LPCTSTR color)
 	{
-		return m_pPlugIdentify->FoobarPrintText(m_hwnd, text, color);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarPrintText(m_hwnd, text, color);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, text, color, lRet);
+		return lRet;
 	}	
 	long FoobarClearText()
 	{
-		return m_pPlugIdentify->FoobarClearText(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarClearText(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long FoobarTextLineGap(long gap)
 	{
-		return m_pPlugIdentify->FoobarTextLineGap(m_hwnd, gap);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarTextLineGap(m_hwnd, gap);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, gap, lRet);
+		return lRet;
 	}	
 	long Play(LPCTSTR file)
 	{
-		return m_pPlugIdentify->Play(file);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->Play(file);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, file, lRet);
+		return lRet;
 	}	
 	long FaqCapture(long x1, long y1, long x2, long y2, long quality, long delay, long time)
 	{
-		return m_pPlugIdentify->FaqCapture(x1, y1, x2, y2, quality, delay, time);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FaqCapture(x1, y1, x2, y2, quality, delay, time);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, quality, delay, time,
+                           lRet);
+		return lRet;
 	}	
 	long FaqRelease(long handle)
 	{
-		return m_pPlugIdentify->FaqRelease(handle);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FaqRelease(handle);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, handle, lRet);
+		return lRet;
 	}	
 	CString FaqSend(LPCTSTR server, long handle, long request_type, long time_out)
 	{ 
-		return m_pPlugIdentify->FaqSend(server, handle, request_type, time_out);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FaqSend(server, handle, request_type, time_out);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           server, handle, request_type, time_out,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long Beep(long fre, long delay)
 	{
-		return m_pPlugIdentify->Beep(fre, delay);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->Beep(fre, delay);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, fre, delay, lRet);
+		return lRet;
 	}	
 	long FoobarClose()
 	{
-		return m_pPlugIdentify->FoobarClose(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarClose(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long MoveDD(long dx, long dy)
 	{
-		return m_pPlugIdentify->MoveDD(dx, dy);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->Beep(dx, dy);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, dx, dy, lRet);
+		return lRet;
 	}	
 	long FaqGetSize(long handle)
 	{
-		return m_pPlugIdentify->FaqGetSize(handle);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FaqGetSize(handle);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, handle, lRet);
+		return lRet;
 	}	
 	long LoadPic(LPCTSTR pic_name)
 	{
@@ -477,185 +858,368 @@ public:
 	}	
 	long GetScreenData(long x1, long y1, long x2, long y2)
 	{
-		return m_pPlugIdentify->GetScreenData(x1, y1, x2, y2);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetScreenData(x1, y1, x2, y2);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2,
+                           lRet);
+		return lRet;
 	}	
 	long FreeScreenData(long handle)
 	{
-		return m_pPlugIdentify->FreeScreenData(handle);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FreeScreenData(handle);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, handle, lRet);
+		return lRet;
 	}	
 	long WheelUp()
 	{
-		return m_pPlugIdentify->WheelUp();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WheelUp();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long WheelDown()
 	{
-		return m_pPlugIdentify->WheelDown();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WheelDown();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long SetMouseDelay(LPCTSTR type, long delay)
 	{
-		return m_pPlugIdentify->SetMouseDelay(type, delay);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetMouseDelay(type, delay);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, type, delay, lRet);
+		return lRet;
 	}	
 	long SetKeypadDelay(LPCTSTR type, long delay)
 	{
-		return m_pPlugIdentify->SetKeypadDelay(type, delay);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetKeypadDelay(type, delay);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, type, delay, lRet);
+		return lRet;
 	}	
 	CString GetEnv(long index, LPCTSTR name)
 	{
-		return m_pPlugIdentify->GetEnv(index, name);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetEnv(index, name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, name, cstrRet);
+		return cstrRet;
 	}	
 	long SetEnv(long index, LPCTSTR name, LPCTSTR value)
 	{
-		return m_pPlugIdentify->SetEnv(index, name, value);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetEnv(index, name, value);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %s %s, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           index, name, value,
+                           lRet);
+		return lRet;
 	}	
 	long SendString(LPCTSTR str)
 	{
-		return m_pPlugIdentify->SendString(m_hwnd, str);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SendString(m_hwnd, str);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, str, lRet);
+		return lRet;
 	}	
 	long DelEnv(long index, LPCTSTR name)
 	{
-		return m_pPlugIdentify->DelEnv(index, name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->DelEnv(index, name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, name, lRet);	
+		return lRet;
 	}	
 	CString GetPath()
 	{
-		return m_pPlugIdentify->GetPath();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetPath();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long SetDict(long index, LPCTSTR dict_name)
 	{
-		return m_pPlugIdentify->SetDict(index, dict_name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetDict(index, dict_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, dict_name, lRet);	
+		return lRet;
 	}	
 	long FindPic(long x1, long y1, long x2, long y2, LPCTSTR pic_name, LPCTSTR delta_color, double sim, long dir, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->FindPic(x1, y1, x2, y2, pic_name, delta_color, sim, dir, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, pic_name, delta_color, sim, dir, lx, ly,
+                           lRet);
 		return lRet;
 	}	
 	CString FindPicEx(long x1, long y1, long x2, long y2, LPCTSTR pic_name, LPCTSTR delta_color, double sim, long dir)
 	{
-		return m_pPlugIdentify->FindPicEx(x1, y1, x2, y2, pic_name, delta_color, sim, dir);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindPicEx(x1, y1, x2, y2, pic_name, delta_color, sim, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, pic_name, delta_color, sim, dir,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long SetClientSize(long width, long height)
 	{
-		return m_pPlugIdentify->SetClientSize(m_hwnd, width, height);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetClientSize(m_hwnd, width, height);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%ld %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, width, height, lRet);	
+		return lRet;
 	}	
 	long ReadInt(LPCTSTR addr, long type)
 	{
-		return m_pPlugIdentify->ReadInt(m_hwnd, addr, type);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->ReadInt(m_hwnd, addr, type);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%s %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, addr, type, lRet);
+		return lRet;
 	}	
 	float ReadFloat(LPCTSTR addr)
 	{
-		return m_pPlugIdentify->ReadFloat(m_hwnd, addr);
+		unsigned long ulTickCount = GetTickCount();
+		float fRet = m_pPlugIdentify->ReadFloat(m_hwnd, addr);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%s, 返回值:%f"), __FUNCTION__, GetTickCount()-ulTickCount, addr, fRet);
+		return fRet;
 	}	
 	double ReadDouble(LPCTSTR addr)
 	{
-		return m_pPlugIdentify->ReadDouble(m_hwnd, addr);
+		unsigned long ulTickCount = GetTickCount();
+		double dRet = m_pPlugIdentify->ReadDouble(m_hwnd, addr);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%s, 返回值:%f"), __FUNCTION__, GetTickCount()-ulTickCount, addr, dRet);
+		return dRet;
 	}	
 	CString FindInt(LPCTSTR addr_range, long int_value_min, long int_value_max, long type)
 	{  
-		return m_pPlugIdentify->FindInt(m_hwnd, addr_range, int_value_min, int_value_max, type);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindInt(m_hwnd, addr_range, int_value_min, int_value_max, type);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %ld %ld %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr_range, int_value_min, int_value_max, type,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindFloat(LPCTSTR addr_range, float float_value_min, float float_value_max)
 	{ 
-		return m_pPlugIdentify->FindFloat(m_hwnd, addr_range, float_value_min, float_value_max);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindFloat(m_hwnd, addr_range, float_value_min, float_value_max);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %f %f, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr_range, float_value_min, float_value_max,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindDouble(LPCTSTR addr_range, double double_value_min, double double_value_max)
 	{ 
-		return m_pPlugIdentify->FindDouble(m_hwnd, addr_range, double_value_min, double_value_max);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindDouble(m_hwnd, addr_range, double_value_min, double_value_max);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %f %f, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr_range, double_value_min, double_value_max,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindString(LPCTSTR addr_range, LPCTSTR string_value, long type)
 	{ 
-		return m_pPlugIdentify->FindString(m_hwnd, addr_range, string_value, type);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindString(m_hwnd, addr_range, string_value, type);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %s %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr_range, string_value, type,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long GetModuleBaseAddr(LPCTSTR module_name)
 	{
-		return m_pPlugIdentify->GetModuleBaseAddr(m_hwnd, module_name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetModuleBaseAddr(m_hwnd, module_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, module_name, lRet);
+		return lRet;
 	}	
 	CString MoveToEx(long x, long y, long w, long h)
 	{
-		return m_pPlugIdentify->MoveToEx(x, y, w, h);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->MoveToEx(x, y, w, h);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x, y, w, h,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString MatchPicName(LPCTSTR pic_name)
 	{
-		return m_pPlugIdentify->MatchPicName(pic_name);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->MatchPicName(pic_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, pic_name, cstrRet);
+		return cstrRet;
 	}	
 	long AddDict(long index, LPCTSTR dict_info)
 	{
-		return m_pPlugIdentify->AddDict(index, dict_info);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->AddDict(index, dict_info);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, dict_info, lRet);
+		return lRet; 
 	}	
 	long EnterCri()
 	{
-		return m_pPlugIdentify->EnterCri();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->EnterCri();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long LeaveCri()
 	{
-		return m_pPlugIdentify->LeaveCri();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->LeaveCri();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long WriteInt(LPCTSTR addr, long type, long v)
 	{ 
-		return m_pPlugIdentify->WriteInt(m_hwnd, addr, type, v);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WriteInt(m_hwnd, addr, type, v);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr, type, v,
+                           lRet);
+		return lRet;
 	}	
 	long WriteFloat(LPCTSTR addr, float v)
 	{
-		return m_pPlugIdentify->WriteFloat(m_hwnd, addr, v);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WriteFloat(m_hwnd, addr, v);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %f, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, addr, v, lRet);
+		return lRet;
 	}	
 	long WriteDouble(LPCTSTR addr, double v)
 	{
-		return m_pPlugIdentify->WriteDouble(m_hwnd, addr, v);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WriteDouble(m_hwnd, addr, v);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %lf, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, addr, v, lRet);
+		return lRet;
 	}	
 	long WriteString(LPCTSTR addr, long type, LPCTSTR v)
 	{ 
-		return m_pPlugIdentify->WriteString(m_hwnd, addr, type, v);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WriteString(m_hwnd, addr, type, v);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %ld %s, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr, type, v,
+                           lRet);	
+		return lRet;
 	}	
 	long AsmAdd(LPCTSTR asm_ins)
 	{
-		return m_pPlugIdentify->AsmAdd(asm_ins);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->AsmAdd(asm_ins);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, asm_ins, lRet);
+		return lRet;
 	}	
 	long AsmClear()
 	{
-		return m_pPlugIdentify->AsmClear();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->AsmClear();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long AsmCall(long mode)
 	{
-		return m_pPlugIdentify->AsmCall(m_hwnd, mode);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->AsmCall(m_hwnd, mode);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, mode, lRet);
+		return lRet;
 	}	
 	long FindMultiColor(long x1, long y1, long x2, long y2, LPCTSTR first_color, LPCTSTR offset_color, double sim, long dir, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->FindMultiColor(x1, y1, x2, y2, first_color, offset_color, sim, dir, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, first_color, offset_color, sim, dir, lx, ly,
+                           lRet);
 		return lRet;
 	}	
 	CString FindMultiColorEx(long x1, long y1, long x2, long y2, LPCTSTR first_color, LPCTSTR offset_color, double sim, long dir)
 	{
-		return m_pPlugIdentify->FindMultiColorEx(x1, y1, x2, y2, first_color, offset_color, sim, dir);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindMultiColorEx(x1, y1, x2, y2, first_color, offset_color, sim, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, first_color, offset_color, sim, dir,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString AsmCode(long base_addr)
 	{
-		return m_pPlugIdentify->AsmCode(base_addr);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->AsmCode(base_addr);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, base_addr, cstrRet);
+		return cstrRet;
 	}	
 	CString Assemble(LPCTSTR asm_code, long base_addr, long is_upper)
 	{
-		return m_pPlugIdentify->Assemble(asm_code, base_addr, is_upper);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->Assemble(asm_code, base_addr, is_upper);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           asm_code, base_addr, is_upper,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long SetWindowTransparent(long v)
 	{
-		return m_pPlugIdentify->SetWindowTransparent(m_hwnd, v);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetWindowTransparent(m_hwnd, v);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, v, lRet);
+		return lRet;
 	}	
 	CString ReadData(LPCTSTR addr, long len)
 	{
-		return m_pPlugIdentify->ReadData(m_hwnd, addr, len);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->ReadData(m_hwnd, addr, len);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, addr, len, cstrRet);
+		return cstrRet;
 	}	
 	long WriteData(LPCTSTR addr, LPCTSTR data)
 	{
-		return m_pPlugIdentify->WriteData(m_hwnd, addr, data);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->WriteData(m_hwnd, addr, data);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, addr, data, lRet);
+		return lRet;
 	}	
 	CString FindData(LPCTSTR addr_range, LPCTSTR data)
 	{
-		return m_pPlugIdentify->FindData(m_hwnd, addr_range, data);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindData(m_hwnd, addr_range, data);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, addr_range, data, cstrRet);
+		return cstrRet;
 	}	
 	long SetPicPwd(LPCTSTR pwd)
 	{
@@ -663,262 +1227,534 @@ public:
 	}	
 	long Log(LPCTSTR info)
 	{
-		return m_pPlugIdentify->Log(info);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->Log(info);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, info, lRet);
+		return lRet;
 	}	
 	CString FindStrE(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->FindStrE(x1, y1, x2, y2, str, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindStrE(x1, y1, x2, y2, str, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindColorE(long x1, long y1, long x2, long y2, LPCTSTR color, double sim, long dir)
 	{
-		return m_pPlugIdentify->FindColorE(x1, y1, x2, y2, color, sim, dir);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindColorE(x1, y1, x2, y2, color, sim, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, color, sim, dir,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindPicE(long x1, long y1, long x2, long y2, LPCTSTR pic_name, LPCTSTR delta_color, double sim, long dir)
 	{
-		return m_pPlugIdentify->FindPicE(x1, y1, x2, y2, pic_name, delta_color, sim, dir);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindPicE(x1, y1, x2, y2, pic_name, delta_color, sim, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, pic_name, delta_color, sim, dir,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindMultiColorE(long x1, long y1, long x2, long y2, LPCTSTR first_color, LPCTSTR offset_color, double sim, long dir)
 	{
-		return m_pPlugIdentify->FindMultiColorE(x1, y1, x2, y2, first_color, offset_color, sim, dir);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindMultiColorE(x1, y1, x2, y2, first_color, offset_color, sim, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, first_color, offset_color, sim, dir,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long SetExactOcr(long exact_ocr)
 	{
-		return m_pPlugIdentify->SetExactOcr(exact_ocr);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetExactOcr(exact_ocr);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, exact_ocr, lRet);
+		return lRet;
 	}	
 	CString ReadString(LPCTSTR addr, long type, long len)
 	{ 
-		return m_pPlugIdentify->ReadString(m_hwnd, addr, type, len);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->ReadString(m_hwnd, addr, type, len);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %ld %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           addr, type, len,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long FoobarTextPrintDir(long dir)
 	{
-		return m_pPlugIdentify->FoobarTextPrintDir(m_hwnd, dir);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FoobarTextPrintDir(m_hwnd, dir);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, dir, lRet);	
+		return lRet;
 	}	
 	CString OcrEx(long x1, long y1, long x2, long y2, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->OcrEx(x1, y1, x2, y2, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->OcrEx(x1, y1, x2, y2, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %lf, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, color, sim,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long SetDisplayInput(LPCTSTR mode)
 	{
-		return m_pPlugIdentify->SetDisplayInput(mode);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetDisplayInput(mode);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, mode, lRet);
+		return lRet;
 	}	
 	long GetTime()
 	{
-		return m_pPlugIdentify->GetTime();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetTime();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long GetScreenWidth()
 	{
-		return m_pPlugIdentify->GetScreenWidth();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetScreenWidth();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long GetScreenHeight()
 	{
-		return m_pPlugIdentify->GetScreenHeight();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetScreenHeight();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long BindWindowEx(LPCTSTR display, LPCTSTR mouse, LPCTSTR keypad, LPCTSTR public_desc, long mode)
 	{   
-		return m_pPlugIdentify->BindWindowEx(m_hwnd, display, mouse, keypad, public_desc, mode);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->BindWindowEx(m_hwnd, display, mouse, keypad, public_desc, mode);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数: %s %s %s %s %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           display, mouse, keypad, public_desc, mode,
+                           lRet);
+		return lRet;
 	}	
 	CString GetDiskSerial()
 	{
-		return m_pPlugIdentify->GetDiskSerial();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetDiskSerial();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	CString Md5(LPCTSTR str)
 	{
-		return m_pPlugIdentify->Md5(str);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->Md5(str);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, str, cstrRet);
+		return cstrRet;
 	}	
 	CString GetMac()
 	{
-		return m_pPlugIdentify->GetMac();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetMac();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long ActiveInputMethod(LPCTSTR id)
 	{
-		return m_pPlugIdentify->ActiveInputMethod(m_hwnd, id);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->ActiveInputMethod(m_hwnd, id);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, id, lRet);
+		return lRet;
 	}	
 	long CheckInputMethod(LPCTSTR id)
 	{
-		return m_pPlugIdentify->CheckInputMethod(m_hwnd, id);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CheckInputMethod(m_hwnd, id);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, id, lRet);
+		return lRet;
 	}	
 	long FindInputMethod(LPCTSTR id)
 	{
-		return m_pPlugIdentify->FindInputMethod(id);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FindInputMethod(id);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, id, lRet);
+		return lRet;
 	}	
 	long GetCursorPos(long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();		
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->GetCursorPos(&x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %p %p, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lx, ly, lRet);
 		return lRet;
 	}	
 	long BindWindow(LPCTSTR display, LPCTSTR mouse, LPCTSTR keypad, long mode)
 	{  
-		return m_pPlugIdentify->BindWindow(m_hwnd, display, mouse, keypad, mode);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->BindWindow(m_hwnd, display, mouse, keypad, mode);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %s %s %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           display, mouse, keypad, mode,
+                           lRet);
+		return lRet;
 	}	
 	long FindWindow(LPCTSTR class_name, LPCTSTR title_name)
 	{
-		return m_pPlugIdentify->FindWindow(class_name, title_name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FindWindow(class_name, title_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, class_name, title_name, lRet);
+		return lRet;
 	}	
 	long GetScreenDepth()
 	{
-		return m_pPlugIdentify->GetScreenDepth();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetScreenDepth();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long SetScreen(long width, long height, long depth)
 	{
-		return m_pPlugIdentify->SetScreen(width, height, depth);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetScreen(width, height, depth);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           width, height, depth,
+                           lRet);
+		return lRet;
 	}	
 	long ExitOs(long type)
 	{
-		return m_pPlugIdentify->ExitOs(type);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->ExitOs(type);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, type, lRet);
+		return lRet;
 	}	
 	CString GetDir(long type)
 	{
-		return m_pPlugIdentify->GetDir(type);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetDir(type);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, type, cstrRet);
+		return cstrRet;
 	}	
 	long GetOsType()
 	{
-		return m_pPlugIdentify->GetOsType();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetOsType();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long FindWindowEx(long parent, LPCTSTR class_name, LPCTSTR title_name)
 	{
-		return m_pPlugIdentify->FindWindowEx(parent, class_name, title_name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FindWindowEx(parent, class_name, title_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %s %s, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           parent, class_name, title_name,
+                           lRet);	
+		return lRet;
 	}	
 	long SetExportDict(long index, LPCTSTR dict_name)
 	{
-		return m_pPlugIdentify->SetExportDict(index, dict_name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetExportDict(index, dict_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数:%ld %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, dict_name, lRet);	
+		return lRet;
 	}	
 	CString GetCursorShape()
 	{
-		return m_pPlugIdentify->GetCursorShape();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetCursorShape();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long DownCpu(long rate)
 	{
-		return m_pPlugIdentify->DownCpu(rate);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->DownCpu(rate);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, rate, lRet);
+		return lRet;
 	}	
 	CString GetCursorSpot()
 	{
-		return m_pPlugIdentify->GetCursorSpot();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetCursorSpot();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long SendString2(LPCTSTR str)
 	{
-		return m_pPlugIdentify->SendString2(m_hwnd, str);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SendString2(m_hwnd, str);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, str, lRet);
+		return lRet;
 	}	
 	long FaqPost(LPCTSTR server, long handle, long request_type, long time_out)
 	{ 
-		return m_pPlugIdentify->FaqPost(server, handle, request_type, time_out);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->FaqPost(server, handle, request_type, time_out);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %ld %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           server, handle, request_type, time_out,
+                           lRet);
+		return lRet;
 	}	
 	CString FaqFetch()
 	{
-		return m_pPlugIdentify->FaqFetch();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FaqFetch();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	CString FetchWord(long x1, long y1, long x2, long y2, LPCTSTR color, LPCTSTR word)
 	{   
-		return m_pPlugIdentify->FetchWord(x1, y1, x2, y2, color, word);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FetchWord(x1, y1, x2, y2, color, word);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, color, word,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long CaptureJpg(long x1, long y1, long x2, long y2, LPCTSTR file, long quality)
 	{   
-		return m_pPlugIdentify->CaptureJpg(x1, y1, x2, y2, file, quality);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CaptureJpg(x1, y1, x2, y2, file, quality);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, file, quality,
+                           lRet);
+		return lRet;
 	}	
 	long FindStrWithFont(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim, LPCTSTR font_name, long font_size, long flag, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->FindStrWithFont(x1, y1, x2, y2, str, color, sim, font_name, font_size, flag, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %s %ld %ld %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim, font_name, font_size, flag, lx, ly,
+                           lRet);
 		return lRet;
 	}	
 	CString FindStrWithFontE(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim, LPCTSTR font_name, long font_size, long flag)
-	{  
-		return m_pPlugIdentify->FindStrWithFontE(x1, y1, x2, y2, str, color, sim, font_name, font_size, flag);
+	{
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindStrWithFontE(x1, y1, x2, y2, str, color, sim, font_name, font_size, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %s %ld %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim, font_name, font_size, flag,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindStrWithFontEx(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim, LPCTSTR font_name, long font_size, long flag)
 	{  
-		return m_pPlugIdentify->FindStrWithFontEx(x1, y1, x2, y2, str, color, sim, font_name, font_size, flag);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindStrWithFontEx(x1, y1, x2, y2, str, color, sim, font_name, font_size, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %s %ld %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim, font_name, font_size, flag,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString GetDictInfo(LPCTSTR str, LPCTSTR font_name, long font_size, long flag)
 	{ 
-		return m_pPlugIdentify->GetDictInfo(str, font_name, font_size, flag);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetDictInfo(str, font_name, font_size, flag);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %s %ld %ld, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           str, font_name, font_size, flag,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long SaveDict(long index, LPCTSTR file)
 	{
-		return m_pPlugIdentify->SaveDict(index, file);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SaveDict(index, file);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, index, file, lRet);
+		return lRet;
 	}	
 	long GetWindowProcessId()
 	{
-		return m_pPlugIdentify->GetWindowProcessId(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetWindowProcessId(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	CString GetWindowProcessPath()
 	{
-		return m_pPlugIdentify->GetWindowProcessPath(m_hwnd);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetWindowProcessPath(m_hwnd);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long LockInput(long lock)
 	{
-		return m_pPlugIdentify->LockInput(lock);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->LockInput(lock);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lock, lRet);
+		return lRet;
 	}	
 	CString GetPicSize(LPCTSTR pic_name)
 	{
-		return m_pPlugIdentify->GetPicSize(pic_name);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetPicSize(pic_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, pic_name, cstrRet);
+		return cstrRet;
 	}	
 	long GetID()
 	{
-		return m_pPlugIdentify->GetID();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetID();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long CapturePng(long x1, long y1, long x2, long y2, LPCTSTR file)
 	{  
-		return m_pPlugIdentify->CapturePng(x1, y1, x2, y2, file);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CapturePng(x1, y1, x2, y2, file);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, file,
+                           lRet);
+		return lRet;
 	}	
 	long CaptureGif(long x1, long y1, long x2, long y2, LPCTSTR file, long delay, long time)
 	{
-		return m_pPlugIdentify->CaptureGif(x1, y1, x2, y2, file, delay, time);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CaptureGif(x1, y1, x2, y2, file, delay, time);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %ld %ld, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, file, delay, time,
+                           lRet);
+		return lRet;
 	}	
 	long ImageToBmp(LPCTSTR pic_name, LPCTSTR bmp_name)
 	{
-		return m_pPlugIdentify->ImageToBmp(pic_name, bmp_name);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->ImageToBmp(pic_name, bmp_name);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, pic_name, bmp_name, lRet);
+		return lRet;
 	}	
 	long FindStrFast(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim, long * lx, long * ly)
 	{
+		unsigned long ulTickCount = GetTickCount();
 		VARIANT x;
 		VARIANT y;
 		long lRet = m_pPlugIdentify->FindStrFast(x1, y1, x2, y2, str, color, sim, &x, &y);
 		*lx = vartol(x);
 		*ly = vartol(y);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf %p %p, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim, lx, ly,
+                           lRet);
 		return lRet;
 	}	
 	CString FindStrFastEx(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->FindStrFastEx(x1, y1, x2, y2, str, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindStrFastEx(x1, y1, x2, y2, str, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim,
+                           cstrRet);
+		return cstrRet;
 	}	
 	CString FindStrFastE(long x1, long y1, long x2, long y2, LPCTSTR str, LPCTSTR color, double sim)
 	{
-		return m_pPlugIdentify->FindStrFastE(x1, y1, x2, y2, str, color, sim);
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->FindStrFastE(x1, y1, x2, y2, str, color, sim);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%ld %ld %ld %ld %s %s %lf, 返回值:%s"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           x1, y1, x2, y2, str, color, sim,
+                           cstrRet);
+		return cstrRet;
 	}	
 	long EnableDisplayDebug(long enable_debug)
 	{
-		return m_pPlugIdentify->EnableDisplayDebug(enable_debug);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->EnableDisplayDebug(enable_debug);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, enable_debug, lRet);
+		return lRet;
 	}	
 	long CapturePre(LPCTSTR file)
 	{
-		return m_pPlugIdentify->CapturePre(file);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->CapturePre(file);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, file, lRet);
+		return lRet;
 	}	
 	long RegEx(LPCTSTR code, LPCTSTR Ver, LPCTSTR ip)
 	{
-		return m_pPlugIdentify->RegEx(code, Ver, ip);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->RegEx(code, Ver, ip);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld,  参数:%s %s %s, 返回值:%ld"),
+                           __FUNCTION__, 
+                           GetTickCount()-ulTickCount, 
+                           code, Ver, ip,
+                           lRet);
+		return lRet;
 	}	
 	CString GetMachineCode()
 	{
-		return m_pPlugIdentify->GetMachineCode();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetMachineCode();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long SetClipboard(LPCTSTR data)
 	{
-		return m_pPlugIdentify->SetClipboard(data);
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->SetClipboard(data);
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 参数: %s, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, data, lRet);
+		return lRet;
 	}	
 	CString GetClipboard()
 	{
-		return m_pPlugIdentify->GetClipboard();
+		unsigned long ulTickCount = GetTickCount();
+		CString cstrRet = m_pPlugIdentify->GetClipboard();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%s"), __FUNCTION__, GetTickCount()-ulTickCount, cstrRet);
+		return cstrRet;
 	}	
 	long GetNowDict()
 	{
-		return m_pPlugIdentify->GetNowDict();
+		unsigned long ulTickCount = GetTickCount();
+		long lRet = m_pPlugIdentify->GetNowDict();
+		Logout(LOG_IFTEST, _T("函数名:%s, 时间:%ld, 返回值:%ld"), __FUNCTION__, GetTickCount()-ulTickCount, lRet);
+		return lRet;
 	}	
 	long Is64Bit()
 	{

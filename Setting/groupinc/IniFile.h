@@ -6,10 +6,11 @@
  ------------------------------------------------------------------------
  Copyright (c) 2000 by Carsten Breuer (CBreuer@openwin.de)
 /************************************************************************/
-#pragma warning (disable:4996)	//取消警告
 
 #ifndef INIFILE_H
 #define INIFILE_H
+#pragma warning (disable:4996)	//取消警告
+
 /*
 #ifndef OWP_DONT_DEF_FALSE
 #ifndef FALSE

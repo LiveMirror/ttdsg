@@ -8,6 +8,7 @@
 #include "RegisterDlg.h"
 #include "ResetPwdDlg.h"
 #include "ReChargeDlg.h"
+#include "LogFile.h"
 
 #ifndef CXX_SETTINGIF_H
 #include "SettingIF.h"
@@ -66,6 +67,9 @@ void LoginDlg::OnBnClickedButtonUserLoginRegister()
 void LoginDlg::OnBnClickedButtonUserLoginLogin()
 {
 	// TODO: Add your control notification handler code here
+	//test
+	Logout(LOG_USER, _T("µÇÂ½ÖÐ"));
+	AidPlugIdentifyIF::Instance()->Ver();
 	CButton* pCButton = NULL;
 	pCButton = (CButton*)GetDlgItem(IDC_BUTTON_LOGIN_LOGIN);
 	pCButton->SetWindowText(_T("µÇÂ½ÖÐ"));

@@ -305,6 +305,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\groupinc\LogFile.h"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\groupinc\MyLogOut.h"
 					>
 				</File>
