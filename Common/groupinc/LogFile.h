@@ -74,18 +74,44 @@ Logout("Intnumber = %d \r\n",n);
 #define MAX_LEVEL 5
 #endif // _LOGLEVEL
 
-
 //-----------------------------------------------------------------------------
 
 #include <windows.h>
 #include <stdio.h> 
 #include <stdarg.h>
+#include <io.h>
 
 enum LOG_TYPE
 {
 	LOG_USER,
 	LOG_IFTEST,
 	LOG_LOGCALTEST,
+};
+
+enum OUTPUT_TYPE
+{
+	OUTPUT_NULL = 0x0000,
+	OUTPUT_CONSOLE = 0x0001,
+	OUTPUT_TXT = 0x0002,
+	OUTPUT_MIXED = 0x0003,
+};
+
+enum TXT_COLOR {    
+	DARKBLUE = 1, 
+	DARKGREEN, 
+	DARKTEAL, 
+	DARKRED, 
+	DARKPINK, 
+	DARKYELLOW, 
+	GRAY, 
+	DARKGRAY, 
+	BLUE, 
+	GREEN, 
+	TEAL, 
+	RED, 
+	PINK, 
+	YELLOW, 
+	WHITE 
 };
 
 // 日志输出类，静态版
@@ -111,6 +137,141 @@ struct CLog
 			memcpy(lpName, pBegin, strlen(pBegin)+1);
 		}
 
+	}
+
+	static void ConsoleOutput(char* msg, TXT_COLOR eColor)
+	{
+		static BOOL bOpenConsole = FALSE;
+
+		if (!bOpenConsole)
+		{
+			bOpenConsole = ::AllocConsole();
+			if (bOpenConsole)
+			{
+				freopen("CONOUT$","w+t",stdout);  
+				freopen("CONIN$","r+t",stdin);
+				freopen("CONERR", "w", stderr);
+
+				SetConsoleTitle("DebugCosole");
+
+
+				HWND hwnd=NULL; 
+				while(NULL==hwnd) 
+					hwnd=::FindWindow(NULL,(LPCTSTR)"DebugCosole"); 
+
+				HMENU hmenu = ::GetSystemMenu ( hwnd, FALSE ); 
+				DeleteMenu ( hmenu, SC_CLOSE, MF_BYCOMMAND );
+			}
+		}
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), eColor);
+		printf("%s", msg);
+	}
+	static void WriteFiles(char* msg, DWORD dLen)
+	{
+		FILE *pFile;
+
+		//获取日志文件名
+		//当前时间
+		SYSTEMTIME st;
+		::GetLocalTime(&st);
+
+		char szFileName[MAX_PATH];
+		char szExeName[MAX_PATH];
+		GetProcessFileName(szExeName);
+		sprintf(szFileName, "Log(%s)%d-%d-%d.txt", szExeName, //sprintf_s MAX_PATH
+			st.wYear, st.wMonth, st.wDay);
+
+		//创建日志文件. 有文件时追加方式打开,没有时创建.
+		if (access(szFileName, 0) != -1)
+		{						
+			pFile = fopen(szFileName,"at");
+		}
+		else
+		{
+			pFile = fopen(szFileName,"wt");
+		}	
+
+		if (NULL == pFile)
+		{
+			printf("::CreateFile Error");
+			exit(1);
+		}
+
+		//向文件写数据 
+		fwrite (msg,            //要输入的文字
+			1,              //文字每一项的大小 以为这里是字符型的 就设置为1 如果是汉字就设置为4
+			dLen,           //单元个数 我们也可以直接写5
+			pFile);         //我们刚刚获得到的地址
+
+		fclose(pFile);
+	}
+	// 输出到文件
+	// lpFile   : 源文件名
+	// nLine    : 源文件行号
+	// lpFormat : 输出的内容
+	static void Logout(OUTPUT_TYPE eType, TXT_COLOR eColor,LPCSTR lpFormat, ...)
+	{
+		static CRITICAL_SECTION  m_crit;
+		if (m_crit.DebugInfo==NULL)
+			::InitializeCriticalSection(&m_crit); 
+		/*-----------------------进入临界区(输出信息)------------------------------*/   
+		::EnterCriticalSection(&m_crit);   
+
+		if ( NULL == lpFormat )
+			return;
+
+		//当前时间
+		SYSTEMTIME st;
+		::GetLocalTime(&st);
+
+		//设置消息头
+		const DWORD BufSize = 2048;
+		char szMsg[BufSize];
+
+		sprintf(szMsg, "[%02d:%02d:%02d.%03d]", st.wHour, st.wMinute, st.wSecond,st.wMilliseconds);
+
+		//格式化消息,并完善整条消息
+		char* pTemp = szMsg;
+		pTemp += strlen(szMsg);
+		va_list args; 
+		va_start(args, lpFormat);    
+		wvsprintfA(pTemp,  lpFormat, args);	 //vsprintf_s BufSize - strlen(szMsg),
+		va_end(args);  
+
+		DWORD dwMsgLen = (DWORD)strlen(szMsg);
+
+		// 判断文件名称是否相同,句柄是否有效.
+		// 如果不同或无效,则关闭当前文件,创建新文件
+
+		switch (eType)
+		{
+		case OUTPUT_NULL:
+			{
+				FreeConsole();
+			}			
+			break;
+		case OUTPUT_CONSOLE:
+			{
+				ConsoleOutput(szMsg, eColor);
+			}	
+			break;
+		case OUTPUT_TXT:
+			{
+				WriteFiles(szMsg, dwMsgLen);
+			}	
+			break;
+		case OUTPUT_MIXED:
+			{
+				ConsoleOutput(szMsg, eColor);
+				WriteFiles(szMsg, dwMsgLen);
+			}
+			break;
+		default:
+			break;
+		}
+		::LeaveCriticalSection(&m_crit);    
+		/*----------------------------退出临界区---------------------------------*/	
 	}
 
 	// 输出到文件
@@ -287,6 +448,10 @@ struct CLog
 
 
 #if (_FLAG_OUTLOG_ENABLE)
+static void SetOutputType(int x=2,int y=4)
+{
+	CLog::Logout(OUTPUT_CONSOLE, YELLOW,"x+y= %d", x+y);
+}
 
 //日志输出接口函数1
 static void Logout(LOG_TYPE eLogType, LPCSTR lpFormat, ...)
